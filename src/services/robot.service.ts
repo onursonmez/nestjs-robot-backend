@@ -1,0 +1,48 @@
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Robot } from '../schemas/robot.schema';
+import { CreateRobotDto } from '../dto/create-robot.dto';
+import { UpdateRobotDto } from '../dto/update-robot.dto';
+
+@Injectable()
+export class RobotService {
+  constructor(
+    @InjectModel(Robot.name) private robotModel: Model<Robot>
+  ) {}
+
+  async findAll(): Promise<Robot[]> {
+    return this.robotModel
+      .find()
+      .populate('mqttClient')
+      .populate('robotType')
+      .exec();
+  }
+
+  async findOne(id: string): Promise<Robot | null> {
+    return this.robotModel
+      .findById(id)
+      .populate('mqttClient')
+      .populate('robotType')
+      .exec();
+  }
+
+  async create(createRobotDto: CreateRobotDto): Promise<Robot> {
+    const createdRobot = new this.robotModel(createRobotDto);
+    await createdRobot.populate('mqttClient');
+    await createdRobot.populate('robotType');
+    return createdRobot.save();
+  }
+
+  async update(id: string, updateRobotDto: UpdateRobotDto): Promise<Robot | null> {
+    return this.robotModel
+      .findByIdAndUpdate(id, updateRobotDto, { new: true })
+      .populate('mqttClient')
+      .populate('robotType')
+      .exec();
+  }
+
+  async remove(id: string): Promise<Robot | null> {
+    return this.robotModel.findByIdAndDelete(id).exec();
+  }
+}
