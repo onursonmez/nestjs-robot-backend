@@ -20,6 +20,10 @@ export class MqttService implements OnModuleInit {
     });
   }
 
+  onModuleDestroy() {
+    this.client.end();
+  }
+
   publish(topic: string, message: string) {
     this.client.publish(topic, message);
   }

@@ -53,7 +53,7 @@ describe('RobotController (REST)', () => {
         .expect(201);
 
       expect(createRobotResponse.body.serialNumber).toBe('TEST-001');
-      expect(createRobotResponse.body.robotType).toBe(robotTypeId);
+      expect(createRobotResponse.body.robotType._id).toBe(robotTypeId);
     });
 
     it('should list all robots', async () => {

@@ -60,6 +60,9 @@
     "typescript": "^5.1.3"
   },
   "jest": {
+    "resetMocks": true,
+    "restoreMocks": true,
+    "clearMocks": true,
     "moduleFileExtensions": [
       "js",
       "json",

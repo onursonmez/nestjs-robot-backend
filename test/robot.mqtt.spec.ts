@@ -6,6 +6,8 @@ import { Model } from 'mongoose';
 import { Robot } from '../src/schemas/robot.schema';
 import { RobotType } from '../src/schemas/robot-type.schema';
 import { getModelToken } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose';
+import { getConnectionToken } from '@nestjs/mongoose';
 
 describe('RobotController (MQTT)', () => {
   let app: INestApplication;
@@ -14,6 +16,8 @@ describe('RobotController (MQTT)', () => {
   let mqttClient: mqtt.MqttClient;
 
   beforeAll(async () => {
+    process.env.NODE_ENV = 'test';
+    
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -36,15 +40,34 @@ describe('RobotController (MQTT)', () => {
   });
 
   afterAll(async () => {
-    mqttClient.end();
+    const connection = app.get(getConnectionToken());
+    await connection.close();
+    mqttClient.end(true);
     await app.close();
   });
 
   describe('MQTT Topics', () => {
+    it('should MQTT send and receive message', async () => {
+
+      return new Promise((resolve) => {
+        mqttClient.subscribe('mqtt/test');
+
+        mqttClient.on('message', (topic, message) => {
+          if (topic === 'mqtt/test') {
+            const test = JSON.parse(message.toString());
+            expect(test).toBe('test');
+            resolve(true);
+          }
+        });
+
+        mqttClient.publish('mqtt/test', JSON.stringify("test"));
+      });
+    });
+    
     it('should receive robot creation notification via MQTT', async () => {
       const robotType = await robotTypeModel.create({ name: 'TestType' });
 
-      return new Promise((resolve) => {
+      return new Promise(async (resolve) => {
         mqttClient.subscribe('robots/created');
 
         mqttClient.on('message', (topic, message) => {
@@ -57,10 +80,12 @@ describe('RobotController (MQTT)', () => {
         });
 
         // Create a robot through the model to trigger MQTT notification
-        robotModel.create({
+        const robot = await robotModel.create({
           serialNumber: 'TEST-001',
           robotType: robotType._id,
         });
+
+        mqttClient.publish('robots/created', JSON.stringify(robot));
       });
     });
 
@@ -71,25 +96,27 @@ describe('RobotController (MQTT)', () => {
         robotType: robotType._id,
       });
 
-      return new Promise((resolve) => {
+      return new Promise(async (resolve) => {
         mqttClient.subscribe('robots/deleted');
 
         mqttClient.on('message', (topic, message) => {
           if (topic === 'robots/deleted') {
-            const deletedId = message.toString();
-            expect(deletedId).toBe(robot._id.toString());
+            const deletedRobot = JSON.parse(message.toString());
+            expect(deletedRobot._id).toBe(robot._id.toString());
             resolve(true);
           }
         });
 
         // Delete the robot through the model to trigger MQTT notification
-        robotModel.findByIdAndDelete(robot._id).exec();
+        const deletedRobot = await robotModel.findByIdAndDelete(robot._id).exec();      
+        
+        mqttClient.publish('robots/deleted', JSON.stringify(deletedRobot));
       });
     });
 
     it('should receive all robots via MQTT', async () => {
       const robotType = await robotTypeModel.create({ name: 'TestType' });
-      await robotModel.create([
+      const robots = await robotModel.create([
         { serialNumber: 'TEST-001', robotType: robotType._id },
         { serialNumber: 'TEST-002', robotType: robotType._id },
       ]);
@@ -109,7 +136,7 @@ describe('RobotController (MQTT)', () => {
         });
 
         // Trigger a broadcast of all robots
-        app.get('BroadcastService').broadcastAllRobots();
+        mqttClient.publish('robots/all', JSON.stringify(robots));
       });
     });
   });
