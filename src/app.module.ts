@@ -23,6 +23,6 @@ import { MqttClient, MqttClientSchema } from './schemas/mqtt-client.schema';
     ]),
   ],
   controllers: [RobotController, RobotTypeController],
-  providers: [RobotService, RobotTypeService, MqttService, BroadcastService, RobotGateway],
+  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, MqttService],
 })
 export class AppModule {}

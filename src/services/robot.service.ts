@@ -45,4 +45,21 @@ export class RobotService {
   async remove(id: string): Promise<Robot | null> {
     return this.robotModel.findByIdAndDelete(id).exec();
   }
+
+  /* 
+  * Robots are compared in the database. 
+  * Matches are updated, unmatches are returned
+  */
+  async compareRobotsFromDB(robots: Robot[]): Promise<Robot[] | null> {
+    const missmatchedRobots: Robot[] = [];
+    for (const robot of robots) {
+      const dbRobot = await this.robotModel.findOne({ serialNumber: robot.serialNumber });
+      if (dbRobot) {
+        await this.robotModel.findByIdAndUpdate(dbRobot._id, { status: robot.status, connectionState: robot.connectionState });
+      } else {
+        missmatchedRobots.push(robot);
+      }
+    }
+    return missmatchedRobots;
+  }
 }

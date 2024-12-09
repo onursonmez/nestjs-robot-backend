@@ -139,5 +139,32 @@ describe('RobotController (MQTT)', () => {
         mqttClient.publish('robots/all', JSON.stringify(robots));
       });
     });
+
+    it('should handle mastercontrol robot publish mqtt message', async () => {
+      const robotType = await robotTypeModel.create({ name: 'TestType' });
+      const robots = await robotModel.create([
+        { serialNumber: 'TEST-001', robotType: robotType._id },
+        { serialNumber: 'TEST-002', robotType: robotType._id },
+      ]);
+
+      return new Promise((resolve) => {
+        mqttClient.subscribe('robots/publish');
+
+        mqttClient.on('message', (topic, message) => {
+          if (topic === 'robots/publish') {
+            const robots = JSON.parse(message.toString());
+            expect(Array.isArray(robots)).toBeTruthy();
+            expect(robots).toHaveLength(2);
+            expect(robots[0].serialNumber).toBe('TEST-001');
+            expect(robots[1].serialNumber).toBe('TEST-002');
+            resolve(true);
+          }
+        });
+
+        // Trigger a broadcast of all robots
+        mqttClient.publish('robots/publish', JSON.stringify(robots));
+      });
+    });
+
   });
 });

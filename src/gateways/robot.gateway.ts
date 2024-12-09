@@ -5,6 +5,7 @@ import { CreateRobotDto } from '../dto/create-robot.dto';
 import { UpdateRobotDto } from '../dto/update-robot.dto';
 import { MqttService } from '../services/mqtt.service';
 import { Robot } from '../schemas/robot.schema';
+import { Inject, forwardRef } from '@nestjs/common';
 
 @WebSocketGateway({
   cors: {
@@ -15,10 +16,11 @@ import { Robot } from '../schemas/robot.schema';
 export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
   server: Server;
+  private client: Socket;
 
   constructor(
+    private readonly mqttService: MqttService,
     private readonly robotService: RobotService,
-    private readonly mqttService: MqttService
   ) {}
 
   afterInit(server: Server) {
@@ -40,30 +42,42 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   }
 
   @SubscribeMessage('findOneRobot')
-  async handleFindOne(client: Socket, id: string) {
+  async handleFindOne(id: string) {
     const robot = await this.robotService.findOne(id);
     return { event: 'robot', data: robot };
   }
 
   @SubscribeMessage('createRobot')
-  async handleCreate(client: Socket, createRobotDto: CreateRobotDto) {
+  async handleCreate(createRobotDto: CreateRobotDto) {
     const robot = await this.robotService.create(createRobotDto);
     this.notifyRobotCreated(robot);
     return { event: 'robotCreated', data: robot };
   }
 
   @SubscribeMessage('updateRobot')
-  async handleUpdate(client: Socket, payload: { id: string; updateRobotDto: UpdateRobotDto }) {
+  async handleUpdate(payload: { id: string; updateRobotDto: UpdateRobotDto }) {
     const robot = await this.robotService.update(payload.id, payload.updateRobotDto);
     this.notifyRobotUpdated(robot);
     return { event: 'robotUpdated', data: robot };
   }
 
   @SubscribeMessage('removeRobot')
-  async handleRemove(client: Socket, id: string) {
+  async handleRemove(id: string) {
     const robot = await this.robotService.remove(id);
     this.notifyRobotDeleted(id);
     return { event: 'robotDeleted', data: id };
+  }
+
+  @SubscribeMessage('robots/publish')
+  async handlePublish(robots: Robot[]) {
+    console.log("Publish robot triggered");
+    const missmatchedRobots = await this.robotService.compareRobotsFromDB(robots);
+    if (missmatchedRobots) {
+      for(const robot of missmatchedRobots) {
+        this.notifyRobotCreated(robot);
+      }
+    }
+    return { event: 'comparedRobots', data: robots };
   }
 
   notifyRobotCreated(robot: Robot) {
@@ -100,3 +114,4 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     this.mqttService.publish('robots/all', JSON.stringify(robots));
   }
 }
+
