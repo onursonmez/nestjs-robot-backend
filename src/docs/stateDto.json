@@ -1,0 +1,173 @@
+export class StateDto {  
+  headerId: number; // Header ID of the message  
+  timestamp: string; // ISO8601 format timestamp  
+  version: string; // Protocol version [Major].[Minor].[Patch]  
+  manufacturer: string; // Manufacturer of the AGV  
+  serialNumber: string; // Serial number of the AGV  
+  maps?: Map[]; // Array of map objects  
+  orderId: string; // Unique order identification  
+  orderUpdateId: number; // Order update identification  
+  zoneSetId?: string; // Optional zone set ID  
+  lastNodeId: string; // Last reached node ID  
+  lastNodeSequenceId: number; // Sequence ID of the last reached node  
+  driving: boolean; // Indicates if the AGV is driving  
+  paused?: boolean; // Indicates if the AGV is paused  
+  newBaseRequest?: boolean; // Indicates if a new base is requested  
+  distanceSinceLastNode?: number; // Distance since the last node  
+  operatingMode: "AUTOMATIC" | "SEMIAUTOMATIC" | "MANUAL" | "SERVICE" | "TEACHIN"; // Current operating mode  
+  nodeStates: NodeState[]; // Array of node states  
+  edgeStates: EdgeState[]; // Array of edge states  
+  agvPosition?: AgvPosition; // AGV position details  
+  velocity?: Velocity; // AGV velocity details  
+  loads?: Load[]; // Array of loads currently handled by the AGV  
+  actionStates: ActionState[]; // Array of current action states  
+  batteryState: BatteryState; // Battery-related information  
+  errors: Error[]; // Array of active errors  
+  information?: Information[]; // Array of informational messages  
+  safetyState: SafetyState; // Safety-related information  
+}  
+
+// Map Class  
+export class Map {  
+  mapId: string; // ID of the map  
+  mapVersion: string; // Version of the map  
+  mapDescription?: string; // Additional information on the map  
+  mapStatus: "ENABLED" | "DISABLED"; // Status of the map  
+}  
+
+// NodeState Class  
+export class NodeState {  
+  nodeId: string; // Unique node identification  
+  sequenceId: number; // Sequence ID to discern multiple nodes  
+  nodeDescription?: string; // Additional information on the node  
+  released: boolean; // Indicates if the node is part of the base  
+  nodePosition?: NodePosition; // Optional position of the node  
+}  
+
+// NodePosition Class  
+export class NodePosition {  
+  x: number; // X-coordinate on the map  
+  y: number; // Y-coordinate on the map  
+  theta?: number; // Absolute orientation of the AGV (optional)  
+  mapId: string; // Unique map ID  
+}  
+
+// EdgeState Class  
+export class EdgeState {  
+  edgeId: string; // Unique edge identification  
+  sequenceId: number; // Sequence ID of the edge  
+  edgeDescription?: string; // Additional information on the edge  
+  released: boolean; // Indicates if the edge is part of the base  
+  trajectory?: Trajectory; // Optional trajectory for the edge  
+}  
+
+// Trajectory Class  
+export class Trajectory {  
+  degree: number; // Degree of the NURBS curve  
+  knotVector: number[]; // Knot vector for the NURBS curve  
+  controlPoints: ControlPoint[]; // List of control points  
+}  
+
+// ControlPoint Class  
+export class ControlPoint {  
+  x: number; // X-coordinate in the world coordinate system  
+  y: number; // Y-coordinate in the world coordinate system  
+  weight?: number; // Weight of the control point (optional)  
+}  
+
+// AgvPosition Class  
+export class AgvPosition {  
+  x: number; // X-coordinate on the map  
+  y: number; // Y-coordinate on the map  
+  theta: number; // Absolute orientation of the AGV  
+  mapId: string; // Unique map ID  
+  mapDescription?: string; // Additional information on the map  
+  positionInitialized: boolean; // Indicates if the position is initialized  
+  localizationScore?: number; // Localization score (optional)  
+  deviationRange?: number; // Position deviation range (optional)  
+}  
+
+// Velocity Class  
+export class Velocity {  
+  vx?: number; // Velocity in the X direction (optional)  
+  vy?: number; // Velocity in the Y direction (optional)  
+  omega?: number; // Angular velocity (optional)  
+}  
+
+// Load Class  
+export class Load {  
+  loadId?: string; // Unique identification number of the load  
+  loadType?: string; // Type of load  
+  loadPosition?: string; // Load position on the AGV  
+  boundingBoxReference?: BoundingBoxReference; // Reference point for the bounding box  
+  loadDimensions?: LoadDimensions; // Dimensions of the load  
+  weight?: number; // Weight of the load  
+}  
+
+// BoundingBoxReference Class  
+export class BoundingBoxReference {  
+  x: number; // X-coordinate of the reference point  
+  y: number; // Y-coordinate of the reference point  
+  z: number; // Z-coordinate of the reference point  
+  theta?: number; // Orientation of the bounding box (optional)  
+}  
+
+// LoadDimensions Class  
+export class LoadDimensions {  
+  length: number; // Length of the load's bounding box  
+  width: number; // Width of the load's bounding box  
+  height?: number; // Height of the load's bounding box (optional)  
+}  
+
+// ActionState Class  
+export class ActionState {  
+  actionId: string; // Unique action ID  
+  actionType?: string; // Type of the action (optional)  
+  actionDescription?: string; // Additional information on the action (optional)  
+  actionStatus: "WAITING" | "INITIALIZING" | "RUNNING" | "FINISHED" | "FAILED"; // Status of the action  
+  resultDescription?: string; // Description of the result (optional)  
+}  
+
+// BatteryState Class  
+export class BatteryState {  
+  batteryCharge: number; // State of charge in percentage  
+  batteryVoltage?: number; // Battery voltage (optional)  
+  batteryHealth?: number; // State of health in percentage (optional)  
+  charging: boolean; // Indicates if the AGV is charging  
+  reach?: number; // Estimated reach with current state of charge (optional)  
+}  
+
+// Error Class  
+export class Error {  
+  errorType: string; // Type or name of the error  
+  errorReferences?: ErrorReference[]; // Array of error references (optional)  
+  errorDescription?: string; // Detailed description of the error (optional)  
+  errorHint?: string; // Hint on how to solve the error (optional)  
+  errorLevel: "WARNING" | "FATAL"; // Severity level of the error  
+}  
+
+// ErrorReference Class  
+export class ErrorReference {  
+  referenceKey: string; // Type of reference (e.g., nodeId, edgeId, etc.)  
+  referenceValue: string; // Value of the reference  
+}  
+
+// Information Class  
+export class Information {  
+  infoType: string; // Type or name of the information  
+  infoReferences?: InfoReference[]; // Array of information references (optional)  
+  infoDescription?: string; // Description of the information (optional)  
+  infoLevel: "INFO" | "DEBUG"; // Level of the information  
+}  
+
+// InfoReference Class  
+export class InfoReference {  
+  referenceKey: string; // Type of reference (e.g., headerId, orderId, etc.)  
+  referenceValue: string; // Value of the reference  
+}  
+
+// SafetyState Class  
+export class SafetyState {  
+  eStop: "AUTOACK" | "MANUAL" | "REMOTE" | "NONE"; // Type of emergency stop  
+  fieldViolation: boolean; // Indicates if a protective field is violated  
+}  
