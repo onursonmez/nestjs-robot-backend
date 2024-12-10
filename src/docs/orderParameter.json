@@ -1,0 +1,81 @@
+{  
+  "headerId": 1,  
+  "timestamp": "2024-12-10T12:00:00.00Z",  
+  "version": "1.3.2",  
+  "manufacturer": "AGVTech",  
+  "serialNumber": "AGV123456",  
+  "orderId": "order_001",  
+  "orderUpdateId": 1,  
+  "zoneSetId": "zone_01",  
+  "nodes": [  
+    {  
+      "nodeId": "node_001",  
+      "sequenceId": 1,  
+      "nodeDescription": "Start point",  
+      "released": true,  
+      "nodePosition": {  
+        "x": 10.5,  
+        "y": 20.3,  
+        "theta": 1.57,  
+        "allowedDeviationXY": 0.1,  
+        "allowedDeviationTheta": 0.05,  
+        "mapId": "map_01",  
+        "mapDescription": "Main warehouse map"  
+      },  
+      "actions": [  
+        {  
+          "actionId": "action_001",  
+          "actionType": "PICK",  
+          "blockingType": "HARD",  
+          "actionParameters": [  
+            {  
+              "key": "loadId",  
+              "value": "load_123"  
+            }  
+          ]  
+        }  
+      ]  
+    }  
+  ],  
+  "edges": [  
+    {  
+      "edgeId": "edge_001",  
+      "sequenceId": 2,  
+      "edgeDescription": "Path to next node",  
+      "released": true,  
+      "startNodeId": "node_001",  
+      "endNodeId": "node_002",  
+      "maxSpeed": 1.5,  
+      "orientation": 0.0,  
+      "orientationType": "TANGENTIAL",  
+      "rotationAllowed": true,  
+      "trajectory": {  
+        "degree": 3,  
+        "knotVector": [0, 0, 0, 1, 1, 1],  
+        "controlPoints": [  
+          { "x": 10.5, "y": 20.3 },  
+          { "x": 15.0, "y": 25.0 },  
+          { "x": 20.0, "y": 30.0 }  
+        ]  
+      },  
+      "corridor": {  
+        "leftWidth": 0.5,  
+        "rightWidth": 0.5,  
+        "corridorRefPoint": "KINEMATICCENTER"  
+      },  
+      "actions": [  
+        {  
+          "actionId": "action_002",  
+          "actionType": "DROP",  
+          "blockingType": "SOFT",  
+          "actionParameters": [  
+            {  
+              "key": "loadId",  
+              "value": "load_123"  
+            }  
+          ]  
+        }  
+      ]  
+    }  
+  ]  
+}  
