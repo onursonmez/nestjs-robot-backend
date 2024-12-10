@@ -1,0 +1,195 @@
+export class AgvFactsheetDto {  
+  headerId?: number; // Optional header ID of the message  
+  timestamp?: string; // Optional ISO8601 format timestamp  
+  version: string; // Version of the VDA5050 protocol  
+  manufacturer: string; // Manufacturer of the AGV  
+  serialNumber: string; // Serial number of the AGV  
+  typeSpecification: TypeSpecification; // AGV type specification  
+  physicalParameters: PhysicalParameters; // Physical parameters of the AGV  
+  protocolLimits: ProtocolLimits; // Protocol limitations  
+  protocolFeatures: ProtocolFeatures; // Supported protocol features  
+  agvGeometry: AgvGeometry; // AGV geometry details  
+  loadSpecification: LoadSpecification; // Load specification details  
+  vehicleConfig?: VehicleConfig; // Optional vehicle configuration  
+}  
+
+// TypeSpecification Class  
+export class TypeSpecification {  
+  seriesName: string; // Generalized series name  
+  seriesDescription?: string; // Human-readable description of the AGV type series  
+  agvKinematic: "DIFF" | "OMNI" | "THREEWHEEL"; // Kinematics type  
+  agvClass: "FORKLIFT" | "CONVEYOR" | "TUGGER" | "CARRIER"; // AGV class  
+  maxLoadMass: number; // Maximum loadable mass  
+  localizationTypes: ("NATURAL" | "REFLECTOR" | "RFID" | "DMC" | "SPOT" | "GRID")[]; // Localization types  
+  navigationTypes: ("PHYSICAL_LINE_GUIDED" | "VIRTUAL_LINE_GUIDED" | "AUTONOMOUS")[]; // Navigation types  
+}  
+
+// PhysicalParameters Class  
+export class PhysicalParameters {  
+  speedMin: number; // Minimum controlled continuous speed  
+  speedMax: number; // Maximum speed  
+  accelerationMax: number; // Maximum acceleration  
+  decelerationMax: number; // Maximum deceleration  
+  heightMin?: number; // Minimum height (optional)  
+  heightMax: number; // Maximum height  
+  width: number; // Width of the AGV  
+  length: number; // Length of the AGV  
+}  
+
+// ProtocolLimits Class  
+export class ProtocolLimits {  
+  maxStringLens?: MaxStringLens; // Maximum string lengths  
+  maxArrayLens?: MaxArrayLens; // Maximum array lengths  
+  timing?: Timing; // Timing information  
+}  
+
+export class MaxStringLens {  
+  msgLen?: number; // Maximum MQTT message length  
+  topicSerialLen?: number; // Maximum length of serial-number part in MQTT topics  
+  topicElemLen?: number; // Maximum length of other parts in MQTT topics  
+  idLen?: number; // Maximum length of ID strings  
+  idNumericalOnly?: boolean; // If true, ID strings must be numerical  
+  enumLen?: number; // Maximum length of ENUM and key strings  
+  loadIdLen?: number; // Maximum length of load ID strings  
+}  
+
+export class MaxArrayLens {  
+  [key: string]: number; // Dynamic keys for array length limits  
+}  
+
+export class Timing {  
+  minOrderInterval: number; // Minimum interval for sending order messages  
+  minStateInterval: number; // Minimum interval for sending state messages  
+  defaultStateInterval?: number; // Default interval for state messages  
+  visualizationInterval?: number; // Default interval for visualization messages  
+}  
+
+// ProtocolFeatures Class  
+export class ProtocolFeatures {  
+  optionalParameters: OptionalParameter[]; // List of supported optional parameters  
+  agvActions: AgvAction[]; // List of supported AGV actions  
+}  
+
+export class OptionalParameter {  
+  parameter: string; // Full name of the optional parameter  
+  support: "SUPPORTED" | "REQUIRED"; // Type of support  
+  description?: string; // Description of the parameter  
+}  
+
+export class AgvAction {  
+  actionType: string; // Unique action type  
+  actionDescription?: string; // Description of the action  
+  actionScopes: ("INSTANT" | "NODE" | "EDGE")[]; // Allowed scopes for the action  
+  actionParameters?: ActionParameter[]; // List of action parameters  
+  resultDescription?: string; // Description of the result  
+  blockingTypes?: ("NONE" | "SOFT" | "HARD")[]; // Possible blocking types  
+}  
+
+export class ActionParameter {  
+  key: string; // Key string for the parameter  
+  valueDataType: "BOOL" | "NUMBER" | "INTEGER" | "FLOAT" | "STRING" | "OBJECT" | "ARRAY"; // Data type of the value  
+  description?: string; // Description of the parameter  
+  isOptional?: boolean; // True if the parameter is optional  
+}  
+
+// AgvGeometry Class  
+export class AgvGeometry {  
+  wheelDefinitions?: WheelDefinition[]; // List of wheel definitions  
+  envelopes2d?: Envelope2D[]; // List of 2D envelopes  
+  envelopes3d?: Envelope3D[]; // List of 3D envelopes  
+}  
+
+export class WheelDefinition {  
+  type: "DRIVE" | "CASTER" | "FIXED" | "MECANUM"; // Wheel type  
+  isActiveDriven: boolean; // True if the wheel is actively driven  
+  isActiveSteered: boolean; // True if the wheel is actively steered  
+  position: Position; // Position of the wheel  
+  diameter: number; // Diameter of the wheel  
+  width: number; // Width of the wheel  
+  centerDisplacement?: number; // Displacement of the wheel's center  
+  constraints?: string; // Constraints defined by the manufacturer  
+}  
+
+export class Position {  
+  x: number; // X-coordinate  
+  y: number; // Y-coordinate  
+  theta?: number; // Orientation in radians (optional)  
+}  
+
+export class Envelope2D {  
+  set: string; // Name of the envelope curve set  
+  polygonPoints: PolygonPoint[]; // List of polygon points  
+  description?: string; // Description of the envelope curve set  
+}  
+
+export class PolygonPoint {  
+  x: number; // X-coordinate of the polygon point  
+  y: number; // Y-coordinate of the polygon point  
+}  
+
+export class Envelope3D {  
+  set: string; // Name of the envelope curve set  
+  format: string; // Format of the data (e.g., DXF)  
+  data?: object; // 3D envelope curve data  
+  url?: string; // URL for downloading the 3D envelope curve data  
+  description?: string; // Description of the envelope curve set  
+}  
+
+// LoadSpecification Class  
+export class LoadSpecification {  
+  loadPositions?: string[]; // List of load positions  
+  loadSets?: LoadSet[]; // List of load sets  
+}  
+
+export class LoadSet {  
+  setName: string; // Unique name of the load set  
+  loadType: string; // Type of load  
+  loadPositions?: string[]; // List of load positions  
+  boundingBoxReference?: BoundingBoxReference; // Bounding box reference  
+  loadDimensions?: LoadDimensions; // Dimensions of the load  
+  maxWeight?: number; // Maximum weight of the load  
+  minLoadhandlingHeight?: number; // Minimum load handling height  
+  maxLoadhandlingHeight?: number; // Maximum load handling height  
+  minLoadhandlingDepth?: number; // Minimum load handling depth  
+  maxLoadhandlingDepth?: number; // Maximum load handling depth  
+  minLoadhandlingTilt?: number; // Minimum load handling tilt  
+  maxLoadhandlingTilt?: number; // Maximum load handling tilt  
+  agvSpeedLimit?: number; // Maximum allowed speed  
+  agvAccelerationLimit?: number; // Maximum allowed acceleration  
+  agvDecelerationLimit?: number; // Maximum allowed deceleration  
+  pickTime?: number; // Approximate time for picking up the load  
+  dropTime?: number; // Approximate time for dropping the load  
+  description?: string; // Description of the load handling set  
+}  
+
+export class BoundingBoxReference {  
+  x: number; // X-coordinate of the reference point  
+  y: number; // Y-coordinate of the reference point  
+  z: number; // Z-coordinate of the reference point  
+  theta?: number; // Orientation of the bounding box  
+}  
+
+export class LoadDimensions {  
+  length: number; // Length of the load's bounding box  
+  width: number; // Width of the load's bounding box  
+  height?: number; // Height of the load's bounding box (optional)  
+}  
+
+// VehicleConfig Class  
+export class VehicleConfig {  
+  versions?: Version[]; // List of hardware and software versions  
+  network?: Network; // Network configuration  
+}  
+
+export class Version {  
+  key: string; // Key of the version  
+  value: string; // Value of the version  
+}  
+
+export class Network {  
+  dnsServers?: string[]; // List of DNS servers  
+  localIpAddress?: string; // Local IP address of the vehicle  
+  ntpServers?: string[]; // List of NTP servers  
+  netmask?: string; // Network subnet mask  
+  defaultGateway?: string; // Default gateway  
+}  
