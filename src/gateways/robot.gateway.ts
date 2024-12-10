@@ -70,8 +70,8 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
 
   @SubscribeMessage('robots/publish')
   async handlePublish(robots: Robot[]) {
-    console.log("Publish robot triggered");
     const missmatchedRobots = await this.robotService.compareRobotsFromDB(robots);
+    console.log("missmatchedRobots", missmatchedRobots);
     if (missmatchedRobots) {
       for(const robot of missmatchedRobots) {
         this.notifyRobotCreated(robot);

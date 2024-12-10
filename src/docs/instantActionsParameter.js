@@ -1,3 +1,23 @@
+/* YENI INSTANT ACTION EKLEME
+
+headerId: arkaplanda auto increment integer
+timestamp: arkaplanda otomatik olarak olusturulur
+version: serialNumber ile bulunan robottan alınan bilgi
+manufacturer: serialNumber ile bulunan robottan alınan bilgi
+serialNumber: serialNumber ile bulunan robottan alınan bilgi
+
+Action Type (dropdown)
+(robot.factsheet.agvActions.actionScopes includes 'INSTANT' olan robot.factsheet.agvActions.actionType listesinden seçilir)
+Örnek: MOVE
+(Seçildiğinde ilgili description alanı bilgi amaçlı drawerın bir köşesinde gözüksün)
+
+Blocking Type (dropdown)
+(Seçilen action type'ın blocking typesları listelenir)
+Örnek: HARD
+
+Oluşturulan tüm instant actionlar instantActions tablosunda saklansın.
+
+*/
 {
     "headerId": 1,
     "timestamp": "2024-12-10T10:30:00.00Z",

@@ -1,9 +1,14 @@
+/*
+mqtt ile gelen bu veri robots koleksiyonunda serialNumber 
+kontrol edilerek robot.connection kısmında güncellenir
+*/
+
 {
-    "headerId": 42,
-    "timestamp": "2024-12-10T13:00:00.00Z",
-    "version": "1.3.2",
-    "manufacturer": "AGV Manufacturing Inc.",
-    "serialNumber": "SN123456789",
-    "connectionState": "ONLINE"
-  }
+  "headerId": 42,
+  "timestamp": "2024-12-10T13:00:00.00Z",
+  "version": "1.3.2",
+  "manufacturer": "AGV Manufacturing Inc.",
+  "serialNumber": "SN123456789",
+  "connectionState": "ONLINE"
+}
   

@@ -1,3 +1,8 @@
+/*
+mqtt ile gelen bu veri robots koleksiyonunda serialNumber 
+kontrol edilerek robot.state kısmında güncellenir
+*/
+
 {  
   "headerId": 1,  
   "timestamp": "2024-12-10T12:00:00.00Z",  

@@ -1,9 +1,8 @@
 export class ConnectionDto {
-    headerId: number; // Required: Header ID of the message
-    timestamp: string; // Required: ISO8601 timestamp
-    version: string; // Required: Protocol version
-    manufacturer: string; // Required: Manufacturer of the AGV
-    serialNumber: string; // Required: Serial number of the AGV
-    connectionState: "ONLINE" | "OFFLINE" | "CONNECTIONBROKEN"; // Required: Connection state
-  }
-  
+  headerId: number; // Required: Header ID of the message
+  timestamp: string; // Required: ISO8601 timestamp
+  version: string; // Required: Protocol version
+  manufacturer: string; // Required: Manufacturer of the AGV
+  serialNumber: string; // Required: Serial number of the AGV
+  connectionState: "ONLINE" | "OFFLINE" | "CONNECTIONBROKEN"; // Required: Connection state
+}

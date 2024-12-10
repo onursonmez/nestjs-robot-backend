@@ -51,15 +51,21 @@ export class RobotService {
   * Matches are updated, unmatches are returned
   */
   async compareRobotsFromDB(robots: Robot[]): Promise<Robot[] | null> {
-    const missmatchedRobots: Robot[] = [];
-    for (const robot of robots) {
-      const dbRobot = await this.robotModel.findOne({ serialNumber: robot.serialNumber });
-      if (dbRobot) {
-        await this.robotModel.findByIdAndUpdate(dbRobot._id, { status: robot.status, connectionState: robot.connectionState });
-      } else {
-        missmatchedRobots.push(robot);
-      }
-    }
+
+    const dbRobots = await this.robotModel.find({ serialNumber: { $in: robots.map(r => r.serialNumber) } });
+    const missmatchedRobots: Robot[] = robots.filter(r => !dbRobots.some(dbR => dbR.serialNumber === r.serialNumber));
     return missmatchedRobots;
+
+
+    // const missmatchedRobots: Robot[] = [];
+    // for (const robot of robots) {
+    //   const dbRobot = await this.robotModel.findOne({ serialNumber: robot.serialNumber });
+    //   if (dbRobot) {
+    //     await this.robotModel.findByIdAndUpdate(dbRobot._id, { status: robot.status, connectionState: robot.connectionState });
+    //   } else {
+    //     missmatchedRobots.push(robot);
+    //   }
+    // }
+    // return missmatchedRobots;
   }
 }
