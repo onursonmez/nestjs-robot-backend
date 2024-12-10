@@ -1,0 +1,106 @@
+{  
+  "headerId": 1,  
+  "timestamp": "2024-12-10T12:00:00.00Z",  
+  "version": "2.0.0",  
+  "manufacturer": "AGVTech",  
+  "serialNumber": "AGV123456",  
+  "typeSpecification": {  
+    "seriesName": "AGV Series X",  
+    "seriesDescription": "High-performance AGV for industrial use",  
+    "agvKinematic": "DIFF",  
+    "agvClass": "FORKLIFT",  
+    "maxLoadMass": 1500,  
+    "localizationTypes": ["NATURAL", "REFLECTOR"],  
+    "navigationTypes": ["AUTONOMOUS"]  
+  },  
+  "physicalParameters": {  
+    "speedMin": 0.1,  
+    "speedMax": 2.5,  
+    "accelerationMax": 1.2,  
+    "decelerationMax": 1.5,  
+    "heightMax": 2.0,  
+    "width": 1.2,  
+    "length": 2.5  
+  },  
+  "protocolLimits": {  
+    "maxStringLens": {  
+      "msgLen": 256,  
+      "topicSerialLen": 64,  
+      "idLen": 32,  
+      "enumLen": 16  
+    },  
+    "timing": {  
+      "minOrderInterval": 0.5,  
+      "minStateInterval": 1.0  
+    }  
+  },  
+  "protocolFeatures": {  
+    "optionalParameters": [  
+      {  
+        "parameter": "order.nodes.nodePosition.allowedDeviationTheta",  
+        "support": "SUPPORTED",  
+        "description": "Allows deviation in node position"  
+      }  
+    ],  
+    "agvActions": [  
+      {  
+        "actionType": "MOVE",  
+        "actionDescription": "Move to a specific position",  
+        "actionScopes": ["NODE"],  
+        "actionParameters": [  
+          {  
+            "key": "speed",  
+            "valueDataType": "NUMBER",  
+            "description": "Speed of the movement",  
+            "isOptional": true  
+          }  
+        ]  
+      }  
+    ]  
+  },  
+  "agvGeometry": {  
+    "wheelDefinitions": [  
+      {  
+        "type": "DRIVE",  
+        "isActiveDriven": true,  
+        "isActiveSteered": false,  
+        "position": {  
+          "x": 0.5,  
+          "y": 0.3  
+        },  
+        "diameter": 0.3,  
+        "width": 0.1  
+      }  
+    ]  
+  },  
+  "loadSpecification": {  
+    "loadPositions": ["FRONT", "BACK"],  
+    "loadSets": [  
+      {  
+        "setName": "DEFAULT",  
+        "loadType": "EPAL",  
+        "loadDimensions": {  
+          "length": 1.2,  
+          "width": 0.8,  
+          "height": 1.5  
+        },  
+        "maxWeight": 1000  
+      }  
+    ]  
+  },  
+  "vehicleConfig": {  
+    "versions": [  
+      {  
+        "key": "softwareVersion",  
+        "value": "v1.03.2"  
+      }  
+    ],  
+    "network": {  
+      "dnsServers": ["8.8.8.8", "8.8.4.4"],  
+      "localIpAddress": "192.168.1.100",  
+      "ntpServers": ["time.google.com"],  
+      "netmask": "255.255.255.0",  
+      "defaultGateway": "192.168.1.1"  
+    }  
+  }  
+}  
