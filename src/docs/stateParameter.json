@@ -1,0 +1,36 @@
+{  
+  "headerId": 1,  
+  "timestamp": "2024-12-10T12:00:00.00Z",  
+  "version": "1.3.2",  
+  "manufacturer": "AGVTech",  
+  "serialNumber": "AGV123456",  
+  "orderId": "order_001",  
+  "orderUpdateId": 1,  
+  "lastNodeId": "node_001",  
+  "lastNodeSequenceId": 1,  
+  "driving": true,  
+  "operatingMode": "AUTOMATIC",  
+  "nodeStates": [  
+    {  
+      "nodeId": "node_001",  
+      "sequenceId": 1,  
+      "released": true  
+    }  
+  ],  
+  "edgeStates": [  
+    {  
+      "edgeId": "edge_001",  
+      "sequenceId": 2,  
+      "released": true  
+    }  
+  ],  
+  "batteryState": {  
+    "batteryCharge": 80,  
+    "charging": false  
+  },  
+  "errors": [],  
+  "safetyState": {  
+    "eStop": "NONE",  
+    "fieldViolation": false  
+  }  
+}  
