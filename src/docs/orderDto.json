@@ -1,0 +1,91 @@
+export class OrderMessageDto {  
+  headerId: number; // Header ID of the message  
+  timestamp: string; // ISO8601 format timestamp  
+  version: string; // Protocol version [Major].[Minor].[Patch]  
+  manufacturer: string; // Manufacturer of the AGV  
+  serialNumber: string; // Serial number of the AGV  
+  orderId: string; // Order identification  
+  orderUpdateId: number; // Unique order update ID  
+  zoneSetId?: string; // Optional zone set ID  
+  nodes: Node[]; // Array of nodes to be traversed  
+  edges: Edge[]; // Array of edges to be traversed  
+}  
+
+// Node Class  
+export class Node {  
+  nodeId: string; // Unique node identification  
+  sequenceId: number; // Sequence ID for tracking  
+  nodeDescription?: string; // Additional information on the node  
+  released: boolean; // True if the node is part of the base  
+  nodePosition?: NodePosition; // Optional position of the node  
+  actions: Action[]; // Array of actions to be executed on the node  
+}  
+
+// NodePosition Class  
+export class NodePosition {  
+  x: number; // X-coordinate on the map  
+  y: number; // Y-coordinate on the map  
+  theta?: number; // Absolute orientation of the AGV (optional)  
+  allowedDeviationXY?: number; // Allowed deviation radius in meters (optional)  
+  allowedDeviationTheta?: number; // Allowed deviation of theta angle (optional)  
+  mapId: string; // Unique map ID  
+  mapDescription?: string; // Additional information on the map (optional)  
+}  
+
+// Edge Class  
+export class Edge {  
+  edgeId: string; // Unique edge identification  
+  sequenceId: number; // Sequence ID for tracking  
+  edgeDescription?: string; // Additional information on the edge  
+  released: boolean; // True if the edge is part of the base  
+  startNodeId: string; // Start node ID  
+  endNodeId: string; // End node ID  
+  maxSpeed?: number; // Permitted maximum speed on the edge (optional)  
+  maxHeight?: number; // Permitted maximum height on the edge (optional)  
+  minHeight?: number; // Permitted minimum height on the edge (optional)  
+  orientation?: number; // Orientation of the AGV on the edge (optional)  
+  orientationType?: "GLOBAL" | "TANGENTIAL"; // Orientation type (optional)  
+  direction?: string; // Direction at junctions (optional)  
+  rotationAllowed?: boolean; // True if rotation is allowed on the edge (optional)  
+  maxRotationSpeed?: number; // Maximum rotation speed in rad/s (optional)  
+  length?: number; // Distance of the path in meters (optional)  
+  trajectory?: Trajectory; // Optional trajectory for the edge  
+  corridor?: Corridor; // Optional corridor boundaries  
+  actions: Action[]; // Array of actions to be executed on the edge  
+}  
+
+// Trajectory Class  
+export class Trajectory {  
+  degree: number; // Degree of the NURBS curve  
+  knotVector: number[]; // Knot vector for the NURBS curve  
+  controlPoints: ControlPoint[]; // List of control points  
+}  
+
+// ControlPoint Class  
+export class ControlPoint {  
+  x: number; // X-coordinate in the world coordinate system  
+  y: number; // Y-coordinate in the world coordinate system  
+  weight?: number; // Weight of the control point (optional)  
+}  
+
+// Corridor Class  
+export class Corridor {  
+  leftWidth: number; // Width of the corridor to the left  
+  rightWidth: number; // Width of the corridor to the right  
+  corridorRefPoint?: "KINEMATICCENTER" | "CONTOUR"; // Reference point for the corridor (optional)  
+}  
+
+// Action Class  
+export class Action {  
+  actionId: string; // Unique ID for the action  
+  actionType: string; // Name of the action  
+  actionDescription?: string; // Additional information on the action (optional)  
+  blockingType: "NONE" | "SOFT" | "HARD"; // Blocking type of the action  
+  actionParameters?: ActionParameter[]; // Array of action parameters (optional)  
+}  
+
+// ActionParameter Class  
+export class ActionParameter {  
+  key: string; // Key of the action parameter  
+  value: any; // Value of the action parameter (can be string, number, boolean, array, or object)  
+}  
