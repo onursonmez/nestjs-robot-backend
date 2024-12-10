@@ -1,0 +1,26 @@
+export class VisualizationDto {
+    headerId?: number; // Optional: Header ID of the message
+    timestamp?: string; // Optional: ISO8601 timestamp
+    version?: string; // Optional: Protocol version
+    manufacturer?: string; // Optional: Manufacturer of the AGV
+    serialNumber?: string; // Optional: Serial number of the AGV
+    agvPosition?: AgvPositionDto; // Optional: AGV's position details
+    velocity?: VelocityDto; // Optional: AGV's velocity details
+  }
+  
+  export class AgvPositionDto {
+    x: number; // Required: X-coordinate
+    y: number; // Required: Y-coordinate
+    theta: number; // Required: Orientation in radians
+    mapId: string; // Required: Map identifier
+    positionInitialized: boolean; // Required: Whether position is initialized
+    localizationScore?: number; // Optional: Localization score (0.0 - 1.0)
+    deviationRange?: number; // Optional: Position deviation range in meters
+  }
+  
+  export class VelocityDto {
+    vx?: number; // Optional: Velocity in X direction (vehicle coordinates)
+    vy?: number; // Optional: Velocity in Y direction (vehicle coordinates)
+    omega?: number; // Optional: Angular velocity
+  }
+  

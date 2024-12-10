@@ -1,0 +1,54 @@
+{
+    "headerId": 1,
+    "timestamp": "2024-12-10T10:30:00.00Z",
+    "version": "1.3.2",
+    "manufacturer": "AGV Manufacturing Inc.",
+    "serialNumber": "SN123456789",
+    "actions": [
+        {
+            "actionId": "action-1234-5678",
+            "actionType": "move",
+            "actionDescription": "Move the AGV forward 10 meters.",
+            "blockingType": "NONE",
+            "actionParameters": [
+                {
+                    "key": "duration",
+                    "value": 10
+                },
+                {
+                    "key": "direction",
+                    "value": "forward"
+                }
+            ]
+        },
+        {
+            "actionId": "action-2345-6789",
+            "actionType": "pick",
+            "actionDescription": "Pick up the load.",
+            "blockingType": "HARD",
+            "actionParameters": [
+                {
+                    "key": "deviceId",
+                    "value": "device-001"
+                },
+                {
+                    "key": "loadId",
+                    "value": "load-5678"
+                }
+            ]
+        },
+        {
+            "actionId": "action-3456-7890",
+            "actionType": "signal",
+            "actionDescription": "Send a signal to indicate readiness.",
+            "blockingType": "SOFT",
+            "actionParameters": [
+                {
+                    "key": "signal",
+                    "value": "ready"
+                }
+            ]
+        }
+    ],
+    "subtopic": "/instantActions"
+}
