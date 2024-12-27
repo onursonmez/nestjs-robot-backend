@@ -12,7 +12,6 @@ import { Robot, RobotSchema } from './schemas/robot.schema';
 import { RobotType, RobotTypeSchema } from './schemas/robot-type.schema';
 import { Map, MapSchema } from './schemas/map.schema';
 import { Graph, GraphSchema } from './schemas/graph.schema';
-import { MqttClient, MqttClientSchema } from './schemas/mqtt-client.schema';
 import { MapController } from './controllers/map.controller';
 import { GraphController } from './controllers/graph.controller';
 import { MapService } from './services/map.service';
@@ -26,7 +25,6 @@ import { GraphGateway } from './gateways/graph.gateway';
     MongooseModule.forRoot('mongodb://localhost:27017/fleet_manager'),
     MongooseModule.forFeature([
       { name: Robot.name, schema: RobotSchema },
-      { name: MqttClient.name, schema: MqttClientSchema },
       { name: RobotType.name, schema: RobotTypeSchema },
       { name: Map.name, schema: MapSchema },
       { name: Graph.name, schema: GraphSchema },

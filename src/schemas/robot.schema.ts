@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { MqttClient } from './mqtt-client.schema';
 import { RobotType } from './robot-type.schema';
 
 @Schema({
@@ -12,13 +11,13 @@ export class Robot extends Document {
   @Prop({ required: true })
   serialNumber: string;
 
-  @Prop({ required: true })
+  @Prop()
   interfaceName: string;
 
-  @Prop({ required: true })
+  @Prop()
   version: string;
 
-  @Prop({ required: true })
+  @Prop()
   manufacturer: string;
 
   @Prop()
@@ -28,16 +27,16 @@ export class Robot extends Document {
   status: string;
 
   @Prop()
-  connectionState: string;
-
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'MqttClient' })
-  mqttClient: MqttClient;
+  password: string;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'RobotType', required: true })
-  robotType: RobotType;
+  type: RobotType;
 
   @Prop({ type: Boolean, default: false })
   isStucked: boolean;
+
+  @Prop({ type: Object })
+  connection: Record<string, unknown>;
 
   @Prop({ type: Object })
   factsheet: Record<string, unknown>;

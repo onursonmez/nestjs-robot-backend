@@ -14,31 +14,27 @@ export class RobotService {
   async findAll(): Promise<Robot[]> {
     return this.robotModel
       .find()
-      .populate('mqttClient')
-      .populate('robotType')
+      .populate('type')
       .exec();
   }
 
   async findOne(id: string): Promise<Robot | null> {
     return this.robotModel
       .findById(id)
-      .populate('mqttClient')
-      .populate('robotType')
+      .populate('type')
       .exec();
   }
 
   async create(createRobotDto: CreateRobotDto): Promise<Robot> {
     const createdRobot = new this.robotModel(createRobotDto);
-    await createdRobot.populate('mqttClient');
-    await createdRobot.populate('robotType');
+    await createdRobot.populate('type');
     return createdRobot.save();
   }
 
   async update(id: string, updateRobotDto: UpdateRobotDto): Promise<Robot | null> {
     return this.robotModel
       .findByIdAndUpdate(id, updateRobotDto, { new: true })
-      .populate('mqttClient')
-      .populate('robotType')
+      .populate('type')
       .exec();
   }
 

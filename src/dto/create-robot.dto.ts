@@ -1,15 +1,28 @@
 export class CreateRobotDto {
   serialNumber: string;
-  interface_name: string;
-  version: string;
-  manufacturer: string;
+  password: string;
+  type: Type;
+  interfaceName?: string;
+  version?: string;
+  manufacturer?: string;
   jobId?: string;
-  status?: string;
-  connectionState?: string;
-  mqttClient: string;
-  robotType: string;
-  factsheet?: any;
-  state: any;
+  status?: string;  
   isStucked?: boolean;
+  connection?: Connection;
+  factsheet?: any;
+  state?: any;
   instantActions?: any;
+}
+
+interface Connection {
+  headerId: number,
+  timestamp: string,
+  version: string,
+  manufacturer: string,
+  serialNumber: string,
+  connectionState: 'ONLINE' | 'OFFLINE' | 'CONNECTIONBROKEN'
+}
+
+interface Type {
+  name: string,
 }

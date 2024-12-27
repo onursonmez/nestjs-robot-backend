@@ -116,17 +116,14 @@ Each test suite ensures proper functionality of:
 
 ```typescript
 {
-  serialNumber: string;      // Required
+  serialNumber: string;     // Required
   url?: string;             // Optional
-  jobId?: string;          // Optional
-  status?: string;         // Optional
+  jobId?: string;           // Optional
+  status?: string;          // Optional
   connectionState?: string; // Optional
-  robotType: string;       // Required - Robot Type ID
-  mqttClient?: {          // Optional
-    clientId: string;     // Required if mqttClient provided
-    username: string;     // Required if mqttClient provided
-    password: string;     // Required if mqttClient provided
-  }
+  type: string;             // Required - Robot Type ID
+  password: string;         // Required if mqttClient provided
+
 }
 ```
 
