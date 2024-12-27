@@ -47,21 +47,21 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     return { event: 'robot', data: robot };
   }
 
-  @SubscribeMessage('createRobot')
+  @SubscribeMessage('robotCreate')
   async handleCreate(createRobotDto: CreateRobotDto) {
     const robot = await this.robotService.create(createRobotDto);
     this.notifyRobotCreated(robot);
     return { event: 'robotCreated', data: robot };
   }
 
-  @SubscribeMessage('updateRobot')
-  async handleUpdate(payload: { id: string; updateRobotDto: UpdateRobotDto }) {
-    const robot = await this.robotService.update(payload.id, payload.updateRobotDto);
+  @SubscribeMessage('robotUpdate')
+  async handleUpdate(client: Socket, { id, updateRobotDto }: { id: string; updateRobotDto: UpdateRobotDto }) {
+    const robot = await this.robotService.update(id, updateRobotDto);
     this.notifyRobotUpdated(robot);
     return { event: 'robotUpdated', data: robot };
   }
 
-  @SubscribeMessage('removeRobot')
+  @SubscribeMessage('robotRemove')
   async handleRemove(id: string) {
     const robot = await this.robotService.remove(id);
     this.notifyRobotDeleted(id);

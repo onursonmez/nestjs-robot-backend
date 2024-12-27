@@ -1,0 +1,83 @@
+{
+    "graphId": "graph123",
+    "mapId": "map123",
+    "isActive": true,
+    "nodes": [
+      {
+        "nodeId": "node1",
+        "released": true,
+        "stationType": "charging",
+        "serialNumber": "SN123456",
+        "nodePosition": {
+          "x": 10.0,
+          "y": 20.0,
+          "allowedDeviationXY": 0.5,
+          "allowedDeviationTheta": 0.1,
+          "mapId": "map123"
+        },
+        "nodeActions": [
+          {
+            "robotType": "TypeA",
+            "actions": [
+              {
+                "actionId": "action1",
+                "actionType": "move",
+                "actionDescription": "Move to position",
+                "actionParameters": [
+                  {
+                    "key": "speed",
+                    "value": 1.5
+                  }
+                ],
+                "resultDescription": "Reached position",
+                "blockingType": "SOFT"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "edgeId": "edge1",
+        "startNodeId": "node1",
+        "endNodeId": "node2",
+        "released": true,
+        "isDirected": true,
+        "trajectory": {
+          "knotVector": [0, 1, 2],
+          "controlPoints": [
+            {
+              "x": 10.0,
+              "y": 20.0
+            },
+            {
+              "x": 15.0,
+              "y": 25.0
+            }
+          ]
+        },
+        "length": 5.0,
+        "edgeActions": [
+          {
+            "robotType": "TypeA",
+            "actions": [
+              {
+                "actionId": "action2",
+                "actionType": "stop",
+                "actionDescription": "Stop at edge",
+                "actionParameters": [
+                  {
+                    "key": "duration",
+                    "value": 2.0
+                  }
+                ],
+                "resultDescription": "Stopped",
+                "blockingType": "HARD"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }

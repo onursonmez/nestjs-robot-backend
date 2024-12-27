@@ -1,0 +1,46 @@
+{
+    "mapId": "map123",
+    "isActive": true,
+    "robotTypes": ["TypeA", "TypeB"],
+    "header": {
+      "frameId": "frame_001"
+    },
+    "info": {
+      "resolution": 0.5,
+      "width": 100,
+      "height": 200,
+      "origin": {
+        "position": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0
+        },
+        "orientation": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "w": 1.0
+        }
+      }
+    },
+    "zones": [
+      {
+        "zoneId": "zone1",
+        "zoneType": "FORBIDDEN",
+        "areas": [
+          {
+            "x": 10.0,
+            "y": 20.0,
+            "z": 0.0
+          },
+          {
+            "x": 15.0,
+            "y": 25.0,
+            "z": 0.0
+          }
+        ]
+      }
+    ],
+    "data": [0, 1, 2, 3, 4, 5],
+    "imageData": "iVBORw0KGgoAAAANSUhEUgAAAAUA" // Example Base64 string
+  }

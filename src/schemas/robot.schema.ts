@@ -12,8 +12,14 @@ export class Robot extends Document {
   @Prop({ required: true })
   serialNumber: string;
 
-  @Prop()
-  url: string;
+  @Prop({ required: true })
+  interfaceName: string;
+
+  @Prop({ required: true })
+  version: string;
+
+  @Prop({ required: true })
+  manufacturer: string;
 
   @Prop()
   jobId: string;
@@ -29,6 +35,18 @@ export class Robot extends Document {
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'RobotType', required: true })
   robotType: RobotType;
+
+  @Prop({ type: Boolean, default: false })
+  isStucked: boolean;
+
+  @Prop({ type: Object })
+  factsheet: Record<string, unknown>;
+
+  @Prop({ type: Object })
+  state: Record<string, unknown>;
+
+  @Prop({ type: Object })
+  instantActions: Record<string, unknown>;
 }
 
 export const RobotSchema = SchemaFactory.createForClass(Robot);
