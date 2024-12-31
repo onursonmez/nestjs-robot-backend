@@ -46,21 +46,21 @@ export class GraphGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     return { event: 'graph', data: graph };
   }
 
-  @SubscribeMessage('createGraph')
+  @SubscribeMessage('graphCreate')
   async handleCreate(createGraphDto: CreateGraphDto) {
     const graph = await this.graphService.create(createGraphDto);
     this.notifyGraphCreated(graph);
     return { event: 'graphCreated', data: graph };
   }
 
-  @SubscribeMessage('updateGraph')
-  async handleUpdate(payload: { id: string; updateGraphDto: UpdateGraphDto }) {
-    const graph = await this.graphService.update(payload.id, payload.updateGraphDto);
+  @SubscribeMessage('graphUpdate')
+  async handleUpdate(client: Socket, {id, updateGraphDto}: { id: string; updateGraphDto: UpdateGraphDto }) {
+    const graph = await this.graphService.update(id, updateGraphDto);
     this.notifyGraphUpdated(graph);
     return { event: 'graphUpdated', data: graph };
   }
 
-  @SubscribeMessage('removeGraph')
+  @SubscribeMessage('graphRemove')
   async handleRemove(id: string) {
     const graph = await this.graphService.remove(id);
     this.notifyGraphDeleted(id);

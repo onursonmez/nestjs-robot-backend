@@ -1,5 +1,4 @@
 export class CreateGraphDto {
-    graphId: string;
     mapId: string;
     isActive: boolean;
     nodes?: Node[];
