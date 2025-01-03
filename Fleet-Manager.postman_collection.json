@@ -1,396 +1,446 @@
 {
-    "info": {
-      "_postman_id": "f8e23d5a-1234-5678-9abc-def012345678",
-      "name": "Fleet Manager",
-      "description": "Fleet Manager API with REST, Socket.IO, and MQTT endpoints",
-      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  "info": {
+    "_postman_id": "f8e23d5a-1234-5678-9abc-def012345678",
+    "name": "Fleet Manager",
+    "description": "Fleet Manager API with REST, Socket.IO, and MQTT endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "REST API",
+      "item": [
+        {
+          "name": "Robots",
+          "item": [
+            {
+              "name": "Get All Robots",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/robots",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robots"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get Robot by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/robots/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robots",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "",
+                      "description": "Robot ID"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Create Robot",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"serialNumber\": \"AGV-2023-001\",\n  \"url\": \"http://192.168.1.100:8080\",\n  \"status\": \"IDLE\",\n  \"connectionState\": \"CONNECTED\",\n  \"robotType\": \"{{robotTypeId}}\",\n  \"mqttClient\": {\n    \"clientId\": \"agv_001_client\",\n    \"username\": \"agv_001\",\n    \"password\": \"secret123\"\n  }\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/robots",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robots"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Update Robot",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"BUSY\",\n  \"connectionState\": \"CONNECTED\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/robots/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robots",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "",
+                      "description": "Robot ID"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Delete Robot",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/robots/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robots",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "",
+                      "description": "Robot ID"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Robot Types",
+          "item": [
+            {
+              "name": "Get All Robot Types",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/robot-types",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robot-types"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Get Robot Type by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/robot-types/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robot-types",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "",
+                      "description": "Robot Type ID"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Create Robot Type",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"AGV\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/robot-types",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robot-types"
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Update Robot Type",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Updated AGV Type\"\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/robot-types/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robot-types",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "",
+                      "description": "Robot Type ID"
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "name": "Delete Robot Type",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/robot-types/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "robot-types",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "",
+                      "description": "Robot Type ID"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     },
-    "item": [
-      {
-        "name": "REST API",
-        "item": [
-          {
-            "name": "Robots",
-            "item": [
-              {
-                "name": "Get All Robots",
-                "request": {
-                  "method": "GET",
-                  "header": [],
-                  "url": {
-                    "raw": "{{baseUrl}}/robots",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robots"]
-                  }
-                }
-              },
-              {
-                "name": "Get Robot by ID",
-                "request": {
-                  "method": "GET",
-                  "header": [],
-                  "url": {
-                    "raw": "{{baseUrl}}/robots/:id",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robots", ":id"],
-                    "variable": [
-                      {
-                        "key": "id",
-                        "value": "",
-                        "description": "Robot ID"
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "name": "Create Robot",
-                "request": {
-                  "method": "POST",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"serialNumber\": \"AGV-2023-001\",\n  \"url\": \"http://192.168.1.100:8080\",\n  \"status\": \"IDLE\",\n  \"connectionState\": \"CONNECTED\",\n  \"robotType\": \"{{robotTypeId}}\",\n  \"mqttClient\": {\n    \"clientId\": \"agv_001_client\",\n    \"username\": \"agv_001\",\n    \"password\": \"secret123\"\n  }\n}"
-                  },
-                  "url": {
-                    "raw": "{{baseUrl}}/robots",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robots"]
-                  }
-                }
-              },
-              {
-                "name": "Update Robot",
-                "request": {
-                  "method": "PUT",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"status\": \"BUSY\",\n  \"connectionState\": \"CONNECTED\"\n}"
-                  },
-                  "url": {
-                    "raw": "{{baseUrl}}/robots/:id",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robots", ":id"],
-                    "variable": [
-                      {
-                        "key": "id",
-                        "value": "",
-                        "description": "Robot ID"
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "name": "Delete Robot",
-                "request": {
-                  "method": "DELETE",
-                  "header": [],
-                  "url": {
-                    "raw": "{{baseUrl}}/robots/:id",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robots", ":id"],
-                    "variable": [
-                      {
-                        "key": "id",
-                        "value": "",
-                        "description": "Robot ID"
-                      }
-                    ]
-                  }
-                }
+    {
+      "name": "Socket.IO",
+      "item": [
+        {
+          "name": "Connect to Socket.IO",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const socket = io('{{baseUrl}}');",
+                  "",
+                  "socket.on('connect', () => {",
+                  "    console.log('Connected to Socket.IO');",
+                  "});",
+                  "",
+                  "socket.on('allRobots', (robots) => {",
+                  "    console.log('Received all robots:', robots);",
+                  "});",
+                  "",
+                  "socket.on('robotCreated', (robot) => {",
+                  "    console.log('Robot created:', robot);",
+                  "});",
+                  "",
+                  "socket.on('robotUpdated', (robot) => {",
+                  "    console.log('Robot updated:', robot);",
+                  "});",
+                  "",
+                  "socket.on('robotDeleted', (robotId) => {",
+                  "    console.log('Robot deleted:', robotId);",
+                  "});"
+                ]
               }
-            ]
-          },
-          {
-            "name": "Robot Types",
-            "item": [
-              {
-                "name": "Get All Robot Types",
-                "request": {
-                  "method": "GET",
-                  "header": [],
-                  "url": {
-                    "raw": "{{baseUrl}}/robot-types",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robot-types"]
-                  }
-                }
-              },
-              {
-                "name": "Get Robot Type by ID",
-                "request": {
-                  "method": "GET",
-                  "header": [],
-                  "url": {
-                    "raw": "{{baseUrl}}/robot-types/:id",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robot-types", ":id"],
-                    "variable": [
-                      {
-                        "key": "id",
-                        "value": "",
-                        "description": "Robot Type ID"
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "name": "Create Robot Type",
-                "request": {
-                  "method": "POST",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"name\": \"AGV\"\n}"
-                  },
-                  "url": {
-                    "raw": "{{baseUrl}}/robot-types",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robot-types"]
-                  }
-                }
-              },
-              {
-                "name": "Update Robot Type",
-                "request": {
-                  "method": "PUT",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "body": {
-                    "mode": "raw",
-                    "raw": "{\n  \"name\": \"Updated AGV Type\"\n}"
-                  },
-                  "url": {
-                    "raw": "{{baseUrl}}/robot-types/:id",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robot-types", ":id"],
-                    "variable": [
-                      {
-                        "key": "id",
-                        "value": "",
-                        "description": "Robot Type ID"
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                "name": "Delete Robot Type",
-                "request": {
-                  "method": "DELETE",
-                  "header": [],
-                  "url": {
-                    "raw": "{{baseUrl}}/robot-types/:id",
-                    "host": ["{{baseUrl}}"],
-                    "path": ["robot-types", ":id"],
-                    "variable": [
-                      {
-                        "key": "id",
-                        "value": "",
-                        "description": "Robot Type ID"
-                      }
-                    ]
-                  }
-                }
+            }
+          ]
+        },
+        {
+          "name": "Find All Robots",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "socket.emit('findAllRobots');"
+                ]
               }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Socket.IO",
-        "item": [
-          {
-            "name": "Connect to Socket.IO",
-            "event": [
-              {
-                "listen": "test",
-                "script": {
-                  "exec": [
-                    "const socket = io('{{baseUrl}}');",
-                    "",
-                    "socket.on('connect', () => {",
-                    "    console.log('Connected to Socket.IO');",
-                    "});",
-                    "",
-                    "socket.on('allRobots', (robots) => {",
-                    "    console.log('Received all robots:', robots);",
-                    "});",
-                    "",
-                    "socket.on('robotCreated', (robot) => {",
-                    "    console.log('Robot created:', robot);",
-                    "});",
-                    "",
-                    "socket.on('robotUpdated', (robot) => {",
-                    "    console.log('Robot updated:', robot);",
-                    "});",
-                    "",
-                    "socket.on('robotDeleted', (robotId) => {",
-                    "    console.log('Robot deleted:', robotId);",
-                    "});"
-                  ]
-                }
+            }
+          ]
+        },
+        {
+          "name": "Find One Robot",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "socket.emit('findOneRobot', '{{robotId}}');"
+                ]
               }
-            ]
-          },
-          {
-            "name": "Find All Robots",
-            "event": [
-              {
-                "listen": "test",
-                "script": {
-                  "exec": [
-                    "socket.emit('findAllRobots');"
-                  ]
-                }
+            }
+          ]
+        },
+        {
+          "name": "Create Robot",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "socket.emit('createRobot', {",
+                  "    serialNumber: 'AGV-2023-002',",
+                  "    robotType: '{{robotTypeId}}',",
+                  "    status: 'IDLE'",
+                  "});"
+                ]
               }
-            ]
-          },
-          {
-            "name": "Find One Robot",
-            "event": [
-              {
-                "listen": "test",
-                "script": {
-                  "exec": [
-                    "socket.emit('findOneRobot', '{{robotId}}');"
-                  ]
-                }
+            }
+          ]
+        },
+        {
+          "name": "Update Robot",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "socket.emit('updateRobot', {",
+                  "    id: '{{robotId}}',",
+                  "    updateRobotDto: {",
+                  "        status: 'BUSY'",
+                  "    }",
+                  "});"
+                ]
               }
-            ]
-          },
-          {
-            "name": "Create Robot",
-            "event": [
-              {
-                "listen": "test",
-                "script": {
-                  "exec": [
-                    "socket.emit('createRobot', {",
-                    "    serialNumber: 'AGV-2023-002',",
-                    "    robotType: '{{robotTypeId}}',",
-                    "    status: 'IDLE'",
-                    "});"
-                  ]
-                }
+            }
+          ]
+        },
+        {
+          "name": "Remove Robot",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "socket.emit('removeRobot', '{{robotId}}');"
+                ]
               }
-            ]
-          },
-          {
-            "name": "Update Robot",
-            "event": [
-              {
-                "listen": "test",
-                "script": {
-                  "exec": [
-                    "socket.emit('updateRobot', {",
-                    "    id: '{{robotId}}',",
-                    "    updateRobotDto: {",
-                    "        status: 'BUSY'",
-                    "    }",
-                    "});"
-                  ]
-                }
-              }
-            ]
-          },
-          {
-            "name": "Remove Robot",
-            "event": [
-              {
-                "listen": "test",
-                "script": {
-                  "exec": [
-                    "socket.emit('removeRobot', '{{robotId}}');"
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "MQTT",
-        "item": [
-          {
-            "name": "Subscribe to All Topics",
-            "event": [
-              {
-                "listen": "test",
-                "script": {
-                  "exec": [
-                    "const mqtt = require('mqtt');",
-                    "const client = mqtt.connect('mqtt://localhost:1883');",
-                    "",
-                    "client.on('connect', () => {",
-                    "    console.log('Connected to MQTT broker');",
-                    "    client.subscribe('robots/#');",
-                    "});",
-                    "",
-                    "client.on('message', (topic, message) => {",
-                    "    console.log(`Received message on ${topic}:`, JSON.parse(message.toString()));",
-                    "});"
-                  ]
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "event": [
-      {
-        "listen": "prerequest",
-        "script": {
-          "type": "text/javascript",
-          "exec": [""]
+            }
+          ]
         }
-      },
-      {
-        "listen": "test",
-        "script": {
-          "type": "text/javascript",
-          "exec": [""]
+      ]
+    },
+    {
+      "name": "MQTT",
+      "item": [
+        {
+          "name": "Subscribe to All Topics",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const mqtt = require('mqtt');",
+                  "const client = mqtt.connect('mqtt://localhost:1883');",
+                  "",
+                  "client.on('connect', () => {",
+                  "    console.log('Connected to MQTT broker');",
+                  "    client.subscribe('robots/#');",
+                  "});",
+                  "",
+                  "client.on('message', (topic, message) => {",
+                  "    console.log(`Received message on ${topic}:`, JSON.parse(message.toString()));",
+                  "});"
+                ]
+              }
+            }
+          ]
         }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
       }
-    ],
-    "variable": [
-      {
-        "key": "baseUrl",
-        "value": "http://localhost:3000",
-        "type": "string"
-      },
-      {
-        "key": "robotId",
-        "value": "",
-        "type": "string"
-      },
-      {
-        "key": "robotTypeId",
-        "value": "",
-        "type": "string"
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
       }
-    ]
-  }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "robotId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "robotTypeId",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

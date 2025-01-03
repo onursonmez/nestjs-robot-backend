@@ -9,7 +9,7 @@ This project provides a fleet management system with REST API, Socket.IO, and MQ
 3. Install dependencies: `npm install`
 4. Start the server: `npm run start:dev`
 
-The server will start on http://localhost:3000
+The server will start on http://localhost:3001
 
 ## Testing
 
@@ -60,55 +60,55 @@ Each test suite ensures proper functionality of:
 
 #### Robots
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/robots` | Get all robots |
-| GET | `/robots/:id` | Get a specific robot |
-| POST | `/robots` | Create a new robot |
-| PUT | `/robots/:id` | Update a robot |
-| DELETE | `/robots/:id` | Delete a robot |
+| Method | Endpoint      | Description          |
+| ------ | ------------- | -------------------- |
+| GET    | `/robots`     | Get all robots       |
+| GET    | `/robots/:id` | Get a specific robot |
+| POST   | `/robots`     | Create a new robot   |
+| PUT    | `/robots/:id` | Update a robot       |
+| DELETE | `/robots/:id` | Delete a robot       |
 
 #### Robot Types
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/robot-types` | Get all robot types |
-| GET | `/robot-types/:id` | Get a specific robot type |
-| POST | `/robot-types` | Create a new robot type |
-| PUT | `/robot-types/:id` | Update a robot type |
-| DELETE | `/robot-types/:id` | Delete a robot type |
+| Method | Endpoint           | Description               |
+| ------ | ------------------ | ------------------------- |
+| GET    | `/robot-types`     | Get all robot types       |
+| GET    | `/robot-types/:id` | Get a specific robot type |
+| POST   | `/robot-types`     | Create a new robot type   |
+| PUT    | `/robot-types/:id` | Update a robot type       |
+| DELETE | `/robot-types/:id` | Delete a robot type       |
 
 ### Socket.IO Events
 
 #### Emit Events (Client to Server)
 
-| Event | Payload | Description |
-|-------|---------|-------------|
-| `findAllRobots` | - | Get all robots |
-| `findOneRobot` | `id: string` | Get a specific robot |
-| `createRobot` | `CreateRobotDto` | Create a new robot |
-| `updateRobot` | `{ id: string, updateRobotDto: UpdateRobotDto }` | Update a robot |
-| `removeRobot` | `id: string` | Delete a robot |
+| Event           | Payload                                          | Description          |
+| --------------- | ------------------------------------------------ | -------------------- |
+| `findAllRobots` | -                                                | Get all robots       |
+| `findOneRobot`  | `id: string`                                     | Get a specific robot |
+| `createRobot`   | `CreateRobotDto`                                 | Create a new robot   |
+| `updateRobot`   | `{ id: string, updateRobotDto: UpdateRobotDto }` | Update a robot       |
+| `removeRobot`   | `id: string`                                     | Delete a robot       |
 
 #### Listen Events (Server to Client)
 
-| Event | Payload | Description |
-|-------|---------|-------------|
-| `allRobots` | `Robot[]` | Emitted when robots list is updated |
-| `robotCreated` | `Robot` | Emitted when a new robot is created |
-| `robotUpdated` | `Robot` | Emitted when a robot is updated |
-| `robotDeleted` | `string` | Emitted when a robot is deleted |
+| Event          | Payload   | Description                         |
+| -------------- | --------- | ----------------------------------- |
+| `allRobots`    | `Robot[]` | Emitted when robots list is updated |
+| `robotCreated` | `Robot`   | Emitted when a new robot is created |
+| `robotUpdated` | `Robot`   | Emitted when a robot is updated     |
+| `robotDeleted` | `string`  | Emitted when a robot is deleted     |
 
 ### MQTT Topics
 
 #### Subscribe Topics
 
-| Topic | Payload | Description |
-|-------|---------|-------------|
-| `robots/all` | `Robot[]` | All robots data |
-| `robots/created` | `Robot` | New robot created |
-| `robots/updated` | `Robot` | Robot updated |
-| `robots/deleted` | `string` | Robot ID deleted |
+| Topic            | Payload   | Description       |
+| ---------------- | --------- | ----------------- |
+| `robots/all`     | `Robot[]` | All robots data   |
+| `robots/created` | `Robot`   | New robot created |
+| `robots/updated` | `Robot`   | Robot updated     |
+| `robots/deleted` | `string`  | Robot ID deleted  |
 
 ## Data Models
 
@@ -140,7 +140,7 @@ Each test suite ensures proper functionality of:
 ### Creating a Robot Type
 
 ```bash
-curl -X POST http://localhost:3000/robot-types \
+curl -X POST http://localhost:3001/robot-types \
   -H "Content-Type: application/json" \
   -d '{"name": "AGV"}'
 ```
@@ -148,7 +148,7 @@ curl -X POST http://localhost:3000/robot-types \
 ### Creating a Robot
 
 ```bash
-curl -X POST http://localhost:3000/robots \
+curl -X POST http://localhost:3001g/robots \
   -H "Content-Type: application/json" \
   -d '{
     "serialNumber": "AGV-2023-001",
@@ -167,7 +167,7 @@ curl -X POST http://localhost:3000/robots \
 ### Socket.IO Connection Example
 
 ```javascript
-const socket = io('http://localhost:3000');
+const socket = io('http://localhost:3001');
 
 // Listen for all robots
 socket.on('allRobots', (robots) => {
