@@ -7,8 +7,9 @@ timestamps: true,
 versionKey: false,
 })
 export class Map extends Document {
-  @Prop({ required: true })
-  mapId: string;
+
+  @Prop({ type: String, alias: 'mapId' }) // _id'ye mapId olarak erişim
+  _id: string;
 
   @Prop({ required: true })
   isActive: boolean;
@@ -17,16 +18,10 @@ export class Map extends Document {
   robotTypes: string[];
 
   @Prop({ type: Object })
-  header: Record<string, unknown>;
-
-  @Prop({ type: Object })
-  info: Record<string, unknown>;
+  rosMsg: Record<string, unknown>;
 
   @Prop({ type: Object })
   zones: Record<string, unknown>;
-
-  @Prop({ required: true, type: [{ type: Number }] })
-  data: number[];
 
   @Prop({ required: true })
   imageData: string;

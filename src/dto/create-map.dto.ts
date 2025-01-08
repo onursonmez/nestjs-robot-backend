@@ -1,11 +1,21 @@
 export class CreateMapDto {
-    mapId: string;
-    isActive: boolean;
-    robotTypes: string[];
+  mapId: string;
+  isActive: boolean;
+  robotTypes: string[];
+  rosMsg: {
     header: {
+      seq: number;
+      stamp: {
+        secs: number;
+        nsecs: number;
+      };
       frameId: string;
     };
     info: {
+      map_load_time: {
+        secs: number;
+        nsecs: number;
+      };
       resolution: number;
       width: number;
       height: number;
@@ -23,16 +33,17 @@ export class CreateMapDto {
         };
       };
     };
-    zones: {
-      zoneId: string;
-      zoneType: string; // Assuming "FORBIDDEN" is a string type, you might want to use a union type if there are more zone types.
-      areas: {
-        x: number;
-        y: number;
-        z: number;
-      }[];
+    data: number[];
+  };
+  zones: {
+    zoneId: string;
+    zoneType: string;
+    areas: {
+      x: number;
+      y: number;
+      z: number;
     }[];
-    data: number[]; // Assuming int8 refers to an array of numbers
-    imageData: string; // Assuming binary.Base64 is a string
-  }
+  }[];
+  imageData: string;
+}
 

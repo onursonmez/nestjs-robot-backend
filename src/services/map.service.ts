@@ -12,14 +12,16 @@ export class MapService {
   ) {}
 
   async findAll(): Promise<Map[]> {
-    return this.mapModel
+    return this.mapModel  
       .find()
+      .select('-rosMsg.data')
       .exec();
   }
 
   async findOne(id: string): Promise<Map | null> {
     return this.mapModel
       .findById(id)
+      .select('-rosMsg.data')
       .exec();
   }
 
@@ -28,9 +30,9 @@ export class MapService {
     return createdMap.save();
   }
 
-  async update(id: string, updateMapDto: UpdateMapDto): Promise<Map | null> {
+  async update(mapId: string, updateMapDto: UpdateMapDto): Promise<Map | null> {
     return this.mapModel
-      .findByIdAndUpdate(id, updateMapDto, { new: true })
+      .findOneAndUpdate({mapId: mapId}, updateMapDto, { new: true })
       .exec();
   }
 
