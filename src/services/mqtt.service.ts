@@ -11,7 +11,7 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
     @Inject(forwardRef(() => RobotGateway))
     private readonly robotGateway: RobotGateway,
     private readonly mapService: MapService,
-  ) {}
+  ) { }
 
 
   async onModuleInit() {
@@ -28,21 +28,21 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
     this.client.on('message', async (topic, message) => {
       console.log(`Received message on ${topic}`);
 
-      if(topic === 'robots/publish') {
+      if (topic === 'robots/publish') {
         // Forward MQTT message to Socket.IO clients
         this.robotGateway.handlePublish(JSON.parse(message.toString()));
         return;
       }
 
-      if(topic === 'robot/create') {
+      if (topic === 'robot/create') {
         // Forward MQTT message to Socket.IO clients
         this.robotGateway.handleCreate(JSON.parse(message.toString()));
         return;
       }
 
-      if(topic === 'amr/0/ptk/robot/map') {
+      if (topic === 'amr/0/ptk/robot/map') {
         // Forward MQTT message to Socket.IO clients
-        this.mapService.update(JSON.parse(message.toString()));
+        //this.mapService.update(JSON.parse(message.toString()));
         return;
       }
     });

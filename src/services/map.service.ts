@@ -9,10 +9,10 @@ import { UpdateMapDto } from '../dto/update-map.dto';
 export class MapService {
   constructor(
     @InjectModel(Map.name) private mapModel: Model<Map>
-  ) {}
+  ) { }
 
   async findAll(): Promise<Map[]> {
-    return this.mapModel  
+    return this.mapModel
       .find()
       .select('-rosMsg.data')
       .exec();
@@ -32,7 +32,7 @@ export class MapService {
 
   async update(mapId: string, updateMapDto: UpdateMapDto): Promise<Map | null> {
     return this.mapModel
-      .findOneAndUpdate({mapId: mapId}, updateMapDto, { new: true })
+      .findOneAndUpdate({ mapId: mapId }, updateMapDto, { new: true })
       .exec();
   }
 

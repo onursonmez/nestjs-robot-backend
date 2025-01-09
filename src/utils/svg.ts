@@ -1,8 +1,8 @@
 interface Rect {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 interface RosMsg {
@@ -59,82 +59,82 @@ export const generateSvg = (activeMap: Map): string => {
   // SVG içeriğini optimize et ve döndür
   return optimizeSvg(svgContent);
 };
-  
-  const optimizeSvg = (svgContent: string): string => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(svgContent, 'image/svg+xml');
-    const rects = Array.from(doc.querySelectorAll('rect'));
-  
-    // Renklerine göre gruplandırma
-    const groupedRects = rects.reduce((acc: Record<string, Element[]>, rect) => {
-      const fill = rect.getAttribute('fill');
-      if (!fill) return acc; // fill özelliği yoksa atla
-      if (!acc[fill]) {
-        acc[fill] = [];
-      }
-      acc[fill].push(rect);
-      return acc;
-    }, {});
-  
-    // Gruplanmış rect'leri birleştirme
-    const optimizedRects = Object.keys(groupedRects).flatMap((fill) => {
-      const rectsWithSameColor = groupedRects[fill];
-      const mergedRects = mergeRects(rectsWithSameColor);
-      return mergedRects.map((rect) => {
-        const newRect = doc.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        newRect.setAttribute('x', rect.x.toString());
-        newRect.setAttribute('y', rect.y.toString());
-        newRect.setAttribute('width', rect.width.toString());
-        newRect.setAttribute('height', rect.height.toString());
-        newRect.setAttribute('fill', fill);
-        return newRect;
-      });
-    });
-  
-    // Eski rect'leri kaldırma ve yeni rect'leri ekleme
-    const svg = doc.querySelector('svg');
-    if (!svg) throw new Error('SVG element not found');
-    svg.innerHTML = '';
-    optimizedRects.forEach((rect) => svg.appendChild(rect));
-  
-    // Optimize edilmiş SVG içeriğini döndürme
-    return new XMLSerializer().serializeToString(doc);
-  };
-  
-  const mergeRects = (rects: Element[]): Rect[] => {
-    const mergedRects: Rect[] = [];
-    let currentRect: Rect | null = null;
-  
-    rects.sort((a, b) => {
-      const yDiff = parseInt(a.getAttribute('y') || '0') - parseInt(b.getAttribute('y') || '0');
-      if (yDiff !== 0) return yDiff;
-      return parseInt(a.getAttribute('x') || '0') - parseInt(b.getAttribute('x') || '0');
-    });
-  
-    rects.forEach((rect) => {
-      const x = parseInt(rect.getAttribute('x') || '0');
-      const y = parseInt(rect.getAttribute('y') || '0');
-      const width = parseInt(rect.getAttribute('width') || '0');
-      const height = parseInt(rect.getAttribute('height') || '0');
-  
-      if (!currentRect) {
-        currentRect = { x, y, width, height };
-      } else if (
-        currentRect.y === y &&
-        currentRect.height === height &&
-        currentRect.x + currentRect.width === x
-      ) {
-        currentRect.width += width;
-      } else {
-        mergedRects.push(currentRect);
-        currentRect = { x, y, width, height };
-      }
-    });
-  
-    if (currentRect) {
-      mergedRects.push(currentRect);
+
+const optimizeSvg = (svgContent: string): string => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(svgContent, 'image/svg+xml');
+  const rects = Array.from(doc.querySelectorAll('rect'));
+
+  // Renklerine göre gruplandırma
+  const groupedRects = rects.reduce((acc: Record<string, Element[]>, rect) => {
+    const fill = rect.getAttribute('fill');
+    if (!fill) return acc; // fill özelliği yoksa atla
+    if (!acc[fill]) {
+      acc[fill] = [];
     }
-  
-    return mergedRects;
-  };
-  
+    acc[fill].push(rect);
+    return acc;
+  }, {});
+
+  // Gruplanmış rect'leri birleştirme
+  const optimizedRects = Object.keys(groupedRects).flatMap((fill) => {
+    const rectsWithSameColor = groupedRects[fill];
+    const mergedRects = mergeRects(rectsWithSameColor);
+    return mergedRects.map((rect) => {
+      const newRect = doc.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      newRect.setAttribute('x', rect.x.toString());
+      newRect.setAttribute('y', rect.y.toString());
+      newRect.setAttribute('width', rect.width.toString());
+      newRect.setAttribute('height', rect.height.toString());
+      newRect.setAttribute('fill', fill);
+      return newRect;
+    });
+  });
+
+  // Eski rect'leri kaldırma ve yeni rect'leri ekleme
+  const svg = doc.querySelector('svg');
+  if (!svg) throw new Error('SVG element not found');
+  svg.innerHTML = '';
+  optimizedRects.forEach((rect) => svg.appendChild(rect));
+
+  // Optimize edilmiş SVG içeriğini döndürme
+  return new XMLSerializer().serializeToString(doc);
+};
+
+const mergeRects = (rects: Element[]): Rect[] => {
+  const mergedRects: Rect[] = [];
+  let currentRect: Rect | null = null;
+
+  rects.sort((a, b) => {
+    const yDiff = parseInt(a.getAttribute('y') || '0') - parseInt(b.getAttribute('y') || '0');
+    if (yDiff !== 0) return yDiff;
+    return parseInt(a.getAttribute('x') || '0') - parseInt(b.getAttribute('x') || '0');
+  });
+
+  rects.forEach((rect) => {
+    const x = parseInt(rect.getAttribute('x') || '0');
+    const y = parseInt(rect.getAttribute('y') || '0');
+    const width = parseInt(rect.getAttribute('width') || '0');
+    const height = parseInt(rect.getAttribute('height') || '0');
+
+    if (!currentRect) {
+      currentRect = { x, y, width, height };
+    } else if (
+      currentRect.y === y &&
+      currentRect.height === height &&
+      currentRect.x + currentRect.width === x
+    ) {
+      currentRect.width += width;
+    } else {
+      mergedRects.push(currentRect);
+      currentRect = { x, y, width, height };
+    }
+  });
+
+  if (currentRect) {
+    mergedRects.push(currentRect);
+  }
+
+  return mergedRects;
+};
+

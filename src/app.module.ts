@@ -15,6 +15,7 @@ import { Graph, GraphSchema } from './schemas/graph.schema';
 import { MapController } from './controllers/map.controller';
 import { GraphController } from './controllers/graph.controller';
 import { MapService } from './services/map.service';
+import { MapGenerateService } from './services/map-generate.service';
 import { GraphService } from './services/graph.service';
 import { MapGateway } from './gateways/map.gateway';
 import { GraphGateway } from './gateways/graph.gateway';
@@ -31,6 +32,6 @@ import { GraphGateway } from './gateways/graph.gateway';
     ]),
   ],
   controllers: [RobotController, RobotTypeController, MapController, GraphController],
-  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, MqttService, MapService, GraphService, MapGateway, GraphGateway],
+  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, MqttService, MapService, MapGenerateService, GraphService, MapGateway, GraphGateway],
 })
-export class AppModule {}
+export class AppModule { }

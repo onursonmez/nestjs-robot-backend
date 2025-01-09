@@ -17,7 +17,7 @@ export class BroadcastService implements OnModuleInit, OnModuleDestroy {
     private readonly robotGateway: RobotGateway,
     private readonly mapGateway: MapGateway,
     private readonly graphGateway: GraphGateway,
-  ) {}
+  ) { }
 
   async onModuleInit() {
     // Wait a brief moment for all connections to be established
