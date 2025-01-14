@@ -19,7 +19,6 @@ export class CreateGraphDto {
     y: number;
     allowedDeviationXY: number;
     allowedDeviationTheta: number;
-    mapId: string;
   }
   
   interface NodeAction {

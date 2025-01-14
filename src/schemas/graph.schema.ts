@@ -7,6 +7,7 @@ timestamps: true,
 versionKey: false,
 })
 export class Graph extends Document {
+
   @Prop({ required: true })
   mapId: string;
 

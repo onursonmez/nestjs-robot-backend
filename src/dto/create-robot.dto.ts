@@ -11,7 +11,6 @@ export class CreateRobotDto {
   connection?: Connection;
   factsheet?: any;
   state?: any;
-  instantActions?: any;
 }
 
 interface Connection {
