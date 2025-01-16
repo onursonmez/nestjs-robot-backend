@@ -34,12 +34,6 @@ export class MqttService implements OnModuleInit, OnModuleDestroy {
         return;
       }
 
-      if (topic === 'robot/create') {
-        // Forward MQTT message to Socket.IO clients
-        this.robotGateway.handleCreate(JSON.parse(message.toString()));
-        return;
-      }
-
       if (topic === 'amr/0/ptk/robot/map') {
         // Forward MQTT message to Socket.IO clients
         //this.mapService.update(JSON.parse(message.toString()));

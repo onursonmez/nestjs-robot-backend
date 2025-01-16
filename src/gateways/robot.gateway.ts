@@ -1,11 +1,14 @@
 import { WebSocketGateway, SubscribeMessage, WebSocketServer, OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { RobotService } from '../services/robot.service';
+import { RobotTypeService } from '../services/robot-type.service';
 import { CreateRobotDto } from '../dto/create-robot.dto';
 import { UpdateRobotDto } from '../dto/update-robot.dto';
+import { CreateRobotTypeDto } from '../dto/create-robot-type.dto';
+import { UpdateRobotTypeDto } from '../dto/update-robot-type.dto';
 import { MqttService } from '../services/mqtt.service';
 import { Robot } from '../schemas/robot.schema';
-import { Inject, forwardRef } from '@nestjs/common';
+import { RobotType } from '../schemas/robot-type.schema';
 
 @WebSocketGateway({
   cors: {
@@ -21,6 +24,7 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   constructor(
     private readonly mqttService: MqttService,
     private readonly robotService: RobotService,
+    private readonly robotTypeService: RobotTypeService,
   ) {}
 
   afterInit(server: Server) {
@@ -48,7 +52,7 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   }
 
   @SubscribeMessage('robotCreate')
-  async handleCreate(createRobotDto: CreateRobotDto) {
+  async handleCreate(client: Socket, createRobotDto: CreateRobotDto) {
     const robot = await this.robotService.create(createRobotDto);
     this.notifyRobotCreated(robot);
     return { event: 'robotCreated', data: robot };
@@ -62,10 +66,38 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   }
 
   @SubscribeMessage('robotRemove')
-  async handleRemove(id: string) {
+  async handleRemove(client: Socket, id: string) {
     const robot = await this.robotService.remove(id);
     this.notifyRobotDeleted(id);
     return { event: 'robotDeleted', data: id };
+  }
+
+  @SubscribeMessage('findAllRobotTypes')
+  async handleFindAllRobotTypes() {
+    const robotTypes = await this.robotTypeService.findAll();
+    return { event: 'allRobotTypes', data: robotTypes };
+  }
+
+  @SubscribeMessage('robotTypeCreate')
+  async handleTypeCreate(client: Socket, createRobotTypeDto: CreateRobotTypeDto) {
+    const robotType = await this.robotTypeService.create(createRobotTypeDto);
+    this.notifyRobotTypeCreated(robotType);
+    return { event: 'robotCreated', data: robotType };
+  }
+
+  @SubscribeMessage('robotTypeUpdate')
+  async handleTypeUpdate(client: Socket, { id, updateRobotTypeDto }: { id: string; updateRobotTypeDto: UpdateRobotTypeDto }) {
+    const robotType = await this.robotTypeService.update(id, updateRobotTypeDto);
+    this.notifyRobotTypeUpdated(robotType);
+    return { event: 'robotUpdated', data: robotType };
+  }
+
+  @SubscribeMessage('robotTypeRemove')
+  async handleTypeRemove(client: Socket, id: string) {
+    console.log(id);
+    const robotType = await this.robotTypeService.remove(id);
+    this.notifyRobotTypeDeleted(id);
+    return { event: 'robotTypeDeleted', data: id };
   }
 
   @SubscribeMessage('robots/publish')
@@ -83,8 +115,6 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   notifyRobotCreated(robot: Robot) {
     // Socket.IO notification
     this.server.emit('robotCreated', robot);
-
-    this.handleFindAll();
     
     // MQTT notification
     this.mqttService.publish('robots/created', JSON.stringify(robot));
@@ -104,6 +134,31 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     
     // MQTT notification
     this.mqttService.publish('robots/deleted', id);
+  }
+
+
+  notifyRobotTypeCreated(robotType: RobotType) {
+    // Socket.IO notification
+    this.server.emit('robotTypeCreated', robotType);
+    
+    // MQTT notification
+    this.mqttService.publish('robot-types/created', JSON.stringify(robotType));
+  }
+
+  notifyRobotTypeUpdated(robotType: RobotType) {
+    // Socket.IO notification
+    this.server.emit('robotTypeUpdated', robotType);
+    
+    // MQTT notification
+    this.mqttService.publish('robots-types/updated', JSON.stringify(robotType));
+  }
+
+  notifyRobotTypeDeleted(id: string) {
+    // Socket.IO notification
+    this.server.emit('robotTypeDeleted', id);
+    
+    // MQTT notification
+    this.mqttService.publish('robots-types/deleted', id);
   }
 
   broadcastAllRobots(robots: Robot[]) {

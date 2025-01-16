@@ -47,7 +47,7 @@ export class GraphGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   }
 
   @SubscribeMessage('graphCreate')
-  async handleCreate(createGraphDto: CreateGraphDto) {
+  async handleCreate(client: Socket, createGraphDto: CreateGraphDto) {
     const graph = await this.graphService.create(createGraphDto);
     this.notifyGraphCreated(graph);
     return { event: 'graphCreated', data: graph };
@@ -61,7 +61,7 @@ export class GraphGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   }
 
   @SubscribeMessage('graphRemove')
-  async handleRemove(id: string) {
+  async handleRemove(client: Socket, id: string) {
     const graph = await this.graphService.remove(id);
     this.notifyGraphDeleted(id);
     return { event: 'graphDeleted', data: id };
@@ -70,8 +70,6 @@ export class GraphGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   notifyGraphCreated(graph: Graph) {
     // Socket.IO notification
     this.server.emit('graphCreated', graph);
-
-    this.handleFindAll();
     
     // MQTT notification
     this.mqttService.publish('graphs/created', JSON.stringify(graph));

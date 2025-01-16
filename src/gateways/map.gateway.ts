@@ -46,32 +46,31 @@ export class MapGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     return { event: 'map', data: map };
   }
 
-  @SubscribeMessage('createMap')
-  async handleCreate(createMapDto: CreateMapDto) {
+  @SubscribeMessage('mapCreate')
+  async handleCreate(client: Socket, createMapDto: CreateMapDto) {
     const map = await this.mapService.create(createMapDto);
     this.notifyMapCreated(map);
     return { event: 'mapCreated', data: map };
   }
 
-  @SubscribeMessage('updateMap')
-  async handleUpdate(payload: { id: string; updateMapDto: UpdateMapDto }) {
-    const map = await this.mapService.update(payload.id, payload.updateMapDto);
+  @SubscribeMessage('mapUpdate')
+  async handleUpdate(client: Socket, { id, updateMapDto }: { id: string; updateMapDto: UpdateMapDto }) { 
+    console.log(updateMapDto);   
+    const map = await this.mapService.update(id, updateMapDto);
     this.notifyMapUpdated(map);
     return { event: 'mapUpdated', data: map };
   }
 
-  @SubscribeMessage('removeMap')
-  async handleRemove(id: string) {
+  @SubscribeMessage('mapRemove')
+  async handleRemove(client: Socket, id: string) {
     const map = await this.mapService.remove(id);
     this.notifyMapDeleted(id);
-    return { event: 'mapDeleted', data: id };
+    return { event: 'mapRemoved', data: id };
   }
 
   notifyMapCreated(map: Map) {
     // Socket.IO notification
     this.server.emit('mapCreated', map);
-
-    this.handleFindAll();
     
     // MQTT notification
     this.mqttService.publish('maps/created', JSON.stringify(map));
@@ -87,10 +86,10 @@ export class MapGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
   notifyMapDeleted(id: string) {
     // Socket.IO notification
-    this.server.emit('mapDeleted', id);
+    this.server.emit('mapRemoved', id);
     
     // MQTT notification
-    this.mqttService.publish('maps/deleted', id);
+    this.mqttService.publish('maps/removed', id);
   }
 
   broadcastAllMaps(maps: Map[]) {

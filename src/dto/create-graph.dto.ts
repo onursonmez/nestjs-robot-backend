@@ -23,6 +23,7 @@ export class CreateGraphDto {
   
   interface NodeAction {
     robotType: string;
+    nodeActionType: string;
     actions: Action[];
   }
   

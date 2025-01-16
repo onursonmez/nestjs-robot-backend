@@ -7,10 +7,6 @@ timestamps: true,
 versionKey: false,
 })
 export class Map extends Document {
-
-  @Prop({ type: String, alias: 'mapId' }) // _id'ye mapId olarak erişim
-  _id: string;
-
   @Prop({ required: true })
   isActive: boolean;
 
@@ -23,7 +19,7 @@ export class Map extends Document {
   @Prop({ type: Object })
   zones: Record<string, unknown>;
 
-  @Prop({ required: true })
+  @Prop()
   imageData: string;
 }
 

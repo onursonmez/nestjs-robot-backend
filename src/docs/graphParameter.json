@@ -1,6 +1,6 @@
 {
     "graphId": "graph123",
-    "mapId": "map123",
+    "map": Map Schema relation,
     "isActive": true,
     "nodes": [
       {
@@ -13,11 +13,11 @@
           "y": 20.0,
           "allowedDeviationXY": 0.5,
           "allowedDeviationTheta": 0.1,
-          "mapId": "map123"
         },
         "nodeActions": [
           {
             "robotType": "TypeA",
+            "nodeActionType": "DELIVER",
             "actions": [
               {
                 "actionId": "action1",

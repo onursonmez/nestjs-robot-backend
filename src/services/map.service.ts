@@ -30,9 +30,9 @@ export class MapService {
     return createdMap.save();
   }
 
-  async update(mapId: string, updateMapDto: UpdateMapDto): Promise<Map | null> {
+  async update(id: string, updateMapDto: UpdateMapDto): Promise<Map | null> {
     return this.mapModel
-      .findOneAndUpdate({ mapId: mapId }, updateMapDto, { new: true })
+      .findByIdAndUpdate(id, updateMapDto, { new: true })
       .exec();
   }
 

@@ -1,5 +1,4 @@
 export class CreateMapDto {
-  mapId: string;
   isActive: boolean;
   robotTypes: string[];
   rosMsg: {

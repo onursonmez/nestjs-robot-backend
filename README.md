@@ -82,22 +82,24 @@ Each test suite ensures proper functionality of:
 
 #### Emit Events (Client to Server)
 
-| Event           | Payload                                          | Description          |
-| --------------- | ------------------------------------------------ | -------------------- |
-| `findAllRobots` | -                                                | Get all robots       |
-| `findOneRobot`  | `id: string`                                     | Get a specific robot |
-| `createRobot`   | `CreateRobotDto`                                 | Create a new robot   |
-| `updateRobot`   | `{ id: string, updateRobotDto: UpdateRobotDto }` | Update a robot       |
-| `removeRobot`   | `id: string`                                     | Delete a robot       |
+| Event               | Payload                                          | Description          |
+| ------------------- | ------------------------------------------------ | -------------------- |
+| `findAllRobots`     | -                                                | Get all robots       |
+| `findOneRobot`      | `id: string`                                     | Get a specific robot |
+| `createRobot`       | `CreateRobotDto`                                 | Create a new robot   |
+| `updateRobot`       | `{ id: string, updateRobotDto: UpdateRobotDto }` | Update a robot       |
+| `removeRobot`       | `id: string`                                     | Delete a robot       |
+| `findAllRobotTypes` | -                                                | Get all robot types  |
 
 #### Listen Events (Server to Client)
 
-| Event          | Payload   | Description                         |
-| -------------- | --------- | ----------------------------------- |
-| `allRobots`    | `Robot[]` | Emitted when robots list is updated |
-| `robotCreated` | `Robot`   | Emitted when a new robot is created |
-| `robotUpdated` | `Robot`   | Emitted when a robot is updated     |
-| `robotDeleted` | `string`  | Emitted when a robot is deleted     |
+| Event          | Payload       | Description                              |
+| -------------- | ------------- | ---------------------------------------- |
+| `allRobots`    | `Robot[]`     | Emitted when robots list is updated      |
+| `allRobotTypes`| `RobotType[]` | Emitted when robots type list is updated |
+| `robotCreated` | `Robot`       | Emitted when a new robot is created      |
+| `robotUpdated` | `Robot`       | Emitted when a robot is updated          |
+| `robotDeleted` | `string`      | Emitted when a robot is deleted          |
 
 ### MQTT Topics
 
