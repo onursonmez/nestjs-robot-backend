@@ -10,6 +10,7 @@ import { NodeActionTypeService } from './services/node-action-type.service';
 import { MqttService } from './services/mqtt.service';
 import { BroadcastService } from './services/broadcast.service';
 import { RobotGateway } from './gateways/robot.gateway';
+import { RobotTypeGateway } from './gateways/robot-type.gateway';
 import { Robot, RobotSchema } from './schemas/robot.schema';
 import { RobotType, RobotTypeSchema } from './schemas/robot-type.schema';
 import { NodeActionType, NodeActionTypeSchema } from './schemas/node-action-type.schema';
@@ -22,11 +23,12 @@ import { MapGenerateService } from './services/map-generate.service';
 import { GraphService } from './services/graph.service';
 import { MapGateway } from './gateways/map.gateway';
 import { GraphGateway } from './gateways/graph.gateway';
+import { NodeActionTypeGateway } from './gateways/node-action-type.gateway';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot('mongodb://localhost:27017/fleet_manager'),
+    MongooseModule.forRoot('mongodb://admin:patika@88.198.66.88:27017/fleet_manager?authSource=admin'),
     MongooseModule.forFeature([
       { name: Robot.name, schema: RobotSchema },
       { name: RobotType.name, schema: RobotTypeSchema },
@@ -36,6 +38,6 @@ import { GraphGateway } from './gateways/graph.gateway';
     ]),
   ],
   controllers: [RobotController, RobotTypeController, MapController, GraphController, NodeActionTypeController],
-  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, MqttService, MapService, MapGenerateService, GraphService, MapGateway, GraphGateway, NodeActionTypeService],
+  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, RobotTypeGateway, NodeActionTypeGateway, MqttService, MapService, MapGenerateService, GraphService, MapGateway, GraphGateway, NodeActionTypeService],
 })
 export class AppModule { }

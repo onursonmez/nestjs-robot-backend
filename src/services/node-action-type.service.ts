@@ -36,7 +36,7 @@ export class NodeActionTypeService {
       .exec();
   }
 
-  async remove(id: string): Promise<NodeActionType> {
+  async delete(id: string): Promise<NodeActionType> {
     if (!isValidObjectId(id)) {
       throw new BadRequestException('Invalid node action type ID format');
     }

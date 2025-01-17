@@ -55,17 +55,16 @@ export class MapGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
   @SubscribeMessage('mapUpdate')
   async handleUpdate(client: Socket, { id, updateMapDto }: { id: string; updateMapDto: UpdateMapDto }) { 
-    console.log(updateMapDto);   
     const map = await this.mapService.update(id, updateMapDto);
     this.notifyMapUpdated(map);
     return { event: 'mapUpdated', data: map };
   }
 
-  @SubscribeMessage('mapRemove')
-  async handleRemove(client: Socket, id: string) {
-    const map = await this.mapService.remove(id);
+  @SubscribeMessage('mapDelete')
+  async handleDelete(client: Socket, id: string) {
+    const map = await this.mapService.delete(id);
     this.notifyMapDeleted(id);
-    return { event: 'mapRemoved', data: id };
+    return { event: 'mapDeleted', data: id };
   }
 
   notifyMapCreated(map: Map) {
@@ -86,10 +85,10 @@ export class MapGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
   notifyMapDeleted(id: string) {
     // Socket.IO notification
-    this.server.emit('mapRemoved', id);
+    this.server.emit('mapDeleted', id);
     
     // MQTT notification
-    this.mqttService.publish('maps/removed', id);
+    this.mqttService.publish('maps/deleted', id);
   }
 
   broadcastAllMaps(maps: Map[]) {

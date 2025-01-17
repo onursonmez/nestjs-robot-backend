@@ -36,7 +36,7 @@ export class RobotTypeService {
       .exec();
   }
 
-  async remove(id: string): Promise<RobotType> {
+  async delete(id: string): Promise<RobotType> {
     if (!isValidObjectId(id)) {
       throw new BadRequestException('Invalid robot type ID format');
     }

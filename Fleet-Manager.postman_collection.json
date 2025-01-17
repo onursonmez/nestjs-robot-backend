@@ -19,12 +19,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/robots",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robots"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robots"]
                 }
               }
             },
@@ -35,13 +31,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/robots/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robots",
-                    ":id"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robots", ":id"],
                   "variable": [
                     {
                       "key": "id",
@@ -68,12 +59,8 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/robots",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robots"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robots"]
                 }
               }
             },
@@ -93,13 +80,8 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/robots/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robots",
-                    ":id"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robots", ":id"],
                   "variable": [
                     {
                       "key": "id",
@@ -117,13 +99,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/robots/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robots",
-                    ":id"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robots", ":id"],
                   "variable": [
                     {
                       "key": "id",
@@ -146,12 +123,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/robot-types",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robot-types"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robot-types"]
                 }
               }
             },
@@ -162,13 +135,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/robot-types/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robot-types",
-                    ":id"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robot-types", ":id"],
                   "variable": [
                     {
                       "key": "id",
@@ -195,12 +163,8 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/robot-types",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robot-types"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robot-types"]
                 }
               }
             },
@@ -220,13 +184,8 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/robot-types/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robot-types",
-                    ":id"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robot-types", ":id"],
                   "variable": [
                     {
                       "key": "id",
@@ -244,13 +203,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/robot-types/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "robot-types",
-                    ":id"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["robot-types", ":id"],
                   "variable": [
                     {
                       "key": "id",
@@ -273,12 +227,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/node-action-types",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "node-action-types"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["node-action-types"]
                 }
               }
             },
@@ -289,13 +239,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/node-action-types/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "node-action-types",
-                    ":id"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["node-action-types", ":id"],
                   "variable": [
                     {
                       "key": "id",
@@ -322,12 +267,8 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/node-action-types",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "node-action-types"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["node-action-types"]
                 }
               }
             },
@@ -347,13 +288,8 @@
                 },
                 "url": {
                   "raw": "{{baseUrl}}/node-action-types/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "node-action-types",
-                    ":id"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["node-action-types", ":id"],
                   "variable": [
                     {
                       "key": "id",
@@ -371,13 +307,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/node-action-types/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "node-action-types",
-                    ":id"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["node-action-types", ":id"],
                   "variable": [
                     {
                       "key": "id",
@@ -434,9 +365,7 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "socket.emit('findAllRobots');"
-                ]
+                "exec": ["socket.emit('findAllRobots');"]
               }
             }
           ]
@@ -447,9 +376,7 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "socket.emit('findOneRobot', '{{robotId}}');"
-                ]
+                "exec": ["socket.emit('findOneRobot', '{{robotId}}');"]
               }
             }
           ]
@@ -490,14 +417,12 @@
           ]
         },
         {
-          "name": "Remove Robot",
+          "name": "Delete Robot",
           "event": [
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "socket.emit('removeRobot', '{{robotId}}');"
-                ]
+                "exec": ["socket.emit('deleteRobot', '{{robotId}}');"]
               }
             }
           ]
@@ -508,9 +433,7 @@
             {
               "listen": "test",
               "script": {
-                "exec": [
-                  "socket.emit('findAllRobotTypes');"
-                ]
+                "exec": ["socket.emit('findAllRobotTypes');"]
               }
             }
           ]
@@ -551,18 +474,14 @@
       "listen": "prerequest",
       "script": {
         "type": "text/javascript",
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     },
     {
       "listen": "test",
       "script": {
         "type": "text/javascript",
-        "exec": [
-          ""
-        ]
+        "exec": [""]
       }
     }
   ],

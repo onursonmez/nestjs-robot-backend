@@ -43,8 +43,8 @@ export class RobotController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const robot = await this.robotService.remove(id);
+  async delete(@Param('id') id: string) {
+    const robot = await this.robotService.delete(id);
     if (!robot) {
       throw new NotFoundException('Robot not found');
     }

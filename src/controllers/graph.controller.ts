@@ -43,8 +43,8 @@ export class GraphController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const graph = await this.graphService.remove(id);
+  async delete(@Param('id') id: string) {
+    const graph = await this.graphService.delete(id);
     if (!graph) {
       throw new NotFoundException('Graph not found');
     }

@@ -50,9 +50,9 @@ export class NodeActionTypeController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async delete(@Param('id') id: string) {
     try {
-      const nodeActionType = await this.nodeActionTypeService.remove(id);
+      const nodeActionType = await this.nodeActionTypeService.delete(id);
       if (!nodeActionType) {
         throw new NotFoundException('Robot type not found');
       }

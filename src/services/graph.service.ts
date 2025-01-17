@@ -34,7 +34,7 @@ export class GraphService {
       .exec();
   }
 
-  async remove(id: string): Promise<Graph | null> {
+  async delete(id: string): Promise<Graph | null> {
     return this.graphModel.findByIdAndDelete(id).exec();
   }
 }

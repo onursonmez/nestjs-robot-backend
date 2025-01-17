@@ -1,6 +1,7 @@
 import { WebSocketGateway, SubscribeMessage, WebSocketServer, OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { GraphService } from '../services/graph.service';
+import { NodeActionTypeService } from '../services/node-action-type.service';
 import { CreateGraphDto } from '../dto/create-graph.dto';
 import { UpdateGraphDto } from '../dto/update-graph.dto';
 import { MqttService } from '../services/mqtt.service';
@@ -20,6 +21,7 @@ export class GraphGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
   constructor(
     private readonly mqttService: MqttService,
     private readonly graphService: GraphService,
+    private readonly nodeActionTypeService: NodeActionTypeService,
   ) {}
 
   afterInit(server: Server) {
@@ -60,9 +62,9 @@ export class GraphGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     return { event: 'graphUpdated', data: graph };
   }
 
-  @SubscribeMessage('graphRemove')
-  async handleRemove(client: Socket, id: string) {
-    const graph = await this.graphService.remove(id);
+  @SubscribeMessage('graphDelete')
+  async handleDelete(client: Socket, id: string) {
+    const graph = await this.graphService.delete(id);
     this.notifyGraphDeleted(id);
     return { event: 'graphDeleted', data: id };
   }

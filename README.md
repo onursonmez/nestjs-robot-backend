@@ -88,7 +88,7 @@ Each test suite ensures proper functionality of:
 | `findOneRobot`      | `id: string`                                     | Get a specific robot |
 | `createRobot`       | `CreateRobotDto`                                 | Create a new robot   |
 | `updateRobot`       | `{ id: string, updateRobotDto: UpdateRobotDto }` | Update a robot       |
-| `removeRobot`       | `id: string`                                     | Delete a robot       |
+| `deleteRobot`       | `id: string`                                     | Delete a robot       |
 | `findAllRobotTypes` | -                                                | Get all robot types  |
 
 #### Listen Events (Server to Client)

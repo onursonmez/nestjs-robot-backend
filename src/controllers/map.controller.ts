@@ -45,8 +45,8 @@ export class MapController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const map = await this.mapService.remove(id);
+  async delete(@Param('id') id: string) {
+    const map = await this.mapService.delete(id);
     if (!map) {
       throw new NotFoundException('Map not found');
     }

@@ -38,7 +38,7 @@ export class RobotService {
       .exec();
   }
 
-  async remove(id: string): Promise<Robot | null> {
+  async delete(id: string): Promise<Robot | null> {
     return this.robotModel.findByIdAndDelete(id).exec();
   }
 

@@ -142,7 +142,7 @@ describe('RobotController (Socket.IO)', () => {
           }
         });
 
-        socket.emit('removeRobot', robot._id.toString());
+        socket.emit('deleteRobot', robot._id.toString());
       });
     }, 10000);
   });

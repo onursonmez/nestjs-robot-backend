@@ -36,7 +36,7 @@ export class MapService {
       .exec();
   }
 
-  async remove(id: string): Promise<Map | null> {
+  async delete(id: string): Promise<Map | null> {
     return this.mapModel.findByIdAndDelete(id).exec();
   }
 }
