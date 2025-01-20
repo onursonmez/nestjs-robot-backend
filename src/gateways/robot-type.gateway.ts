@@ -1,6 +1,5 @@
 import { WebSocketGateway, SubscribeMessage, WebSocketServer, OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { RobotService } from '../services/robot.service';
 import { RobotTypeService } from '../services/robot-type.service';
 import { CreateRobotTypeDto } from '../dto/create-robot-type.dto';
 import { UpdateRobotTypeDto } from '../dto/update-robot-type.dto';
