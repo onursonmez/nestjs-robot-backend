@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
+import { Load } from './load.schema';
 
 export type JobDocument = HydratedDocument<Job>;
 
@@ -14,6 +15,9 @@ export class Target {
   @Prop({ required: true })
   filterByLoadId: boolean;
 
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Load' })
+  load: Load;
+  
   @Prop({ required: true })
   nodeActionType: string;
 }
@@ -71,9 +75,6 @@ export class Job {
 
   @Prop()
   endAt?: Date;
-
-  @Prop()
-  loadId?: string;
 
   @Prop({ type: [SchemaFactory.createForClass(Target)], required: true })
   targets: Target[];

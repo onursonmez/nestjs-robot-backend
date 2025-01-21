@@ -28,6 +28,21 @@ import { JobController } from './controllers/job.controller';
 import { JobService } from './services/job.service';
 import { JobGateway } from './gateways/job.gateway';
 import { Job, JobSchema } from './schemas/job.schema';
+
+import { LoadController } from './controllers/load.controller';
+import { LoadService } from './services/load.service';
+import { LoadGateway } from './gateways/load.gateway';
+import { Load, LoadSchema } from './schemas/load.schema';
+
+import { CarrierController } from './controllers/carrier.controller';
+import { CarrierService } from './services/carrier.service';
+import { CarrierGateway } from './gateways/carrier.gateway';
+import { Carrier, CarrierSchema } from './schemas/carrier.schema';
+
+import { AreaController } from './controllers/area.controller';
+import { AreaService } from './services/area.service';
+import { AreaGateway } from './gateways/area.gateway';
+import { Area, AreaSchema } from './schemas/area.schema';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -39,9 +54,12 @@ import { Job, JobSchema } from './schemas/job.schema';
       { name: Map.name, schema: MapSchema },
       { name: Graph.name, schema: GraphSchema },
       { name: Job.name, schema: JobSchema },
+      { name: Load.name, schema: LoadSchema },
+      { name: Carrier.name, schema: CarrierSchema },
+      { name: Area.name, schema: AreaSchema },
     ]),
   ],
-  controllers: [RobotController, RobotTypeController, MapController, GraphController, NodeActionTypeController, JobController],
-  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, RobotTypeGateway, NodeActionTypeGateway, MqttService, MapService, MapGenerateService, GraphService, MapGateway, GraphGateway, NodeActionTypeService, JobService, JobGateway],
+  controllers: [RobotController, RobotTypeController, MapController, GraphController, NodeActionTypeController, JobController, LoadController, CarrierController, AreaController],
+  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, RobotTypeGateway, NodeActionTypeGateway, MqttService, MapService, MapGenerateService, GraphService, MapGateway, GraphGateway, NodeActionTypeService, JobService, JobGateway, LoadService, LoadGateway, CarrierService, CarrierGateway, AreaService, AreaGateway],
 })
 export class AppModule { }

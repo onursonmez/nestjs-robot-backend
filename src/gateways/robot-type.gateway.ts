@@ -72,7 +72,7 @@ export class RobotTypeGateway implements OnGatewayInit, OnGatewayConnection, OnG
     this.server.emit('robotTypeCreated', robotType);
     
     // MQTT notification
-    this.mqttService.publish('robot-types/created', JSON.stringify(robotType));
+    this.mqttService.publish('robot-type/created', JSON.stringify(robotType));
   }
 
   notifyRobotTypeUpdated(robotType: RobotType) {
@@ -80,7 +80,7 @@ export class RobotTypeGateway implements OnGatewayInit, OnGatewayConnection, OnG
     this.server.emit('robotTypeUpdated', robotType);
     
     // MQTT notification
-    this.mqttService.publish('robots-types/updated', JSON.stringify(robotType));
+    this.mqttService.publish('robots-type/updated', JSON.stringify(robotType));
   }
 
   notifyRobotTypeDeleted(id: string) {
@@ -88,7 +88,7 @@ export class RobotTypeGateway implements OnGatewayInit, OnGatewayConnection, OnG
     this.server.emit('robotTypeDeleted', id);
     
     // MQTT notification
-    this.mqttService.publish('robots-types/deleted', id);
+    this.mqttService.publish('robots-type/deleted', id);
   }
 }
 

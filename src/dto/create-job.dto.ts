@@ -1,3 +1,5 @@
+import { Load } from "src/schemas/load.schema";
+
 export class CreateJobDto {
   graphId: string;
   trackCarrierPosition: boolean;
@@ -5,12 +7,12 @@ export class CreateJobDto {
   robotTypes?: string[];
   startAt?: string;
   endAt?: string;
-  loadId?: string;
 
   targets: {
     targetId: string;
     isArea: boolean;
     filterByLoadId: boolean;
+    load: Load;
     nodeActionType: string;
   }[];
 

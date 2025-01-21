@@ -72,7 +72,7 @@ export class MapGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     this.server.emit('mapCreated', map);
     
     // MQTT notification
-    this.mqttService.publish('maps/created', JSON.stringify(map));
+    this.mqttService.publish('map/created', JSON.stringify(map));
   }
 
   notifyMapUpdated(map: Map) {
@@ -80,7 +80,7 @@ export class MapGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     this.server.emit('mapUpdated', map);
     
     // MQTT notification
-    this.mqttService.publish('maps/updated', JSON.stringify(map));
+    this.mqttService.publish('map/updated', JSON.stringify(map));
   }
 
   notifyMapDeleted(id: string) {
@@ -88,7 +88,7 @@ export class MapGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     this.server.emit('mapDeleted', id);
     
     // MQTT notification
-    this.mqttService.publish('maps/deleted', id);
+    this.mqttService.publish('map/deleted', id);
   }
 
   broadcastAllMaps(maps: Map[]) {

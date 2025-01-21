@@ -74,7 +74,7 @@ export class GraphGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     this.server.emit('graphCreated', graph);
     
     // MQTT notification
-    this.mqttService.publish('graphs/created', JSON.stringify(graph));
+    this.mqttService.publish('graph/created', JSON.stringify(graph));
   }
 
   notifyGraphUpdated(graph: Graph) {
@@ -82,7 +82,7 @@ export class GraphGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     this.server.emit('graphUpdated', graph);
     
     // MQTT notification
-    this.mqttService.publish('graphs/updated', JSON.stringify(graph));
+    this.mqttService.publish('graph/updated', JSON.stringify(graph));
   }
 
   notifyGraphDeleted(id: string) {
@@ -90,7 +90,7 @@ export class GraphGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     this.server.emit('graphDeleted', id);
     
     // MQTT notification
-    this.mqttService.publish('graphs/deleted', id);
+    this.mqttService.publish('graph/deleted', id);
   }
 
   broadcastAllGraphs(graphs: Graph[]) {

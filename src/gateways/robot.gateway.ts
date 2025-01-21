@@ -85,7 +85,7 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     this.server.emit('robotCreated', robot);
     
     // MQTT notification
-    this.mqttService.publish('robots/created', JSON.stringify(robot));
+    this.mqttService.publish('robot/created', JSON.stringify(robot));
   }
 
   notifyRobotUpdated(robot: Robot) {
@@ -93,7 +93,7 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     this.server.emit('robotUpdated', robot);
     
     // MQTT notification
-    this.mqttService.publish('robots/updated', JSON.stringify(robot));
+    this.mqttService.publish('robot/updated', JSON.stringify(robot));
   }
 
   notifyRobotDeleted(id: string) {
@@ -101,7 +101,7 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
     this.server.emit('robotDeleted', id);
     
     // MQTT notification
-    this.mqttService.publish('robots/deleted', id);
+    this.mqttService.publish('robot/deleted', id);
   }
 
   broadcastAllRobots(robots: Robot[]) {

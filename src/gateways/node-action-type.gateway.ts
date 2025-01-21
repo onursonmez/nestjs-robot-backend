@@ -69,17 +69,17 @@ export class NodeActionTypeGateway implements OnGatewayInit, OnGatewayConnection
 
   notifyNodeActionTypeCreated(nodeActionType: NodeActionType) {
     this.server.emit('nodeActionTypeCreated', nodeActionType);    
-    this.mqttService.publish('nodeActionTypes/created', JSON.stringify(nodeActionType));
+    this.mqttService.publish('nodeActionType/created', JSON.stringify(nodeActionType));
   }
 
   notifyNodeActionTypeUpdated(nodeActionType: NodeActionType) {
     this.server.emit('nodeActionTypeUpdated', nodeActionType);
-    this.mqttService.publish('nodeActionTypes/updated', JSON.stringify(nodeActionType));
+    this.mqttService.publish('nodeActionType/updated', JSON.stringify(nodeActionType));
   }
 
   notifyNodeActionTypeDeleted(id: string) {
     this.server.emit('nodeActionTypeDeleted', id);    
-    this.mqttService.publish('nodeActionTypes/deleted', id);
+    this.mqttService.publish('nodeActionType/deleted', id);
   }
 
   broadcastAllNodeActionTypes(nodeActionTypes: NodeActionType[]) {

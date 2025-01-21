@@ -72,7 +72,7 @@ export class JobGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     this.server.emit('jobCreated', job);
     
     // MQTT notification
-    this.mqttService.publish('jobs/created', JSON.stringify(job));
+    this.mqttService.publish('job/created', JSON.stringify(job));
   }
 
   notifyJobUpdated(job: Job) {
@@ -80,7 +80,7 @@ export class JobGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     this.server.emit('jobUpdated', job);
     
     // MQTT notification
-    this.mqttService.publish('jobs/updated', JSON.stringify(job));
+    this.mqttService.publish('job/updated', JSON.stringify(job));
   }
 
   notifyJobDeleted(id: string) {
@@ -88,7 +88,7 @@ export class JobGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     this.server.emit('jobDeleted', id);
     
     // MQTT notification
-    this.mqttService.publish('jobs/deleted', id);
+    this.mqttService.publish('job/deleted', id);
   }
 }
 
