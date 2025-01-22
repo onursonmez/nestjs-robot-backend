@@ -1,6 +1,7 @@
 import { Load } from "src/schemas/load.schema";
 
-export class CreateJobDto {
+export class CreateJobTemplateDto {
+  name: string;
   graphId: string;
   trackCarrierPosition: boolean;
   serialNumber?: string;
@@ -20,7 +21,7 @@ export class CreateJobDto {
     startNodeId: string;
     endNodeId: string;
     nodeActionType: string;
-    taskStatus: CreateJobDto['status'];
+    taskStatus: CreateJobTemplateDto['status'];
     startAt: string;
     endAt: string;
   }[];

@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
 import { Load } from './load.schema';
 
-export type JobDocument = HydratedDocument<Job>;
+export type JobTemplateDocument = HydratedDocument<JobTemplate>;
 
 @Schema()
 export class Target {
@@ -53,11 +53,14 @@ export class VisitedNode {
 }
 
 @Schema({
-  collection: 'jobs',
+  collection: 'jobTemplates',
   timestamps: true,
   versionKey: false,
   })
-export class Job {
+export class JobTemplate {
+  @Prop({ required: true })
+  name: string;
+
   @Prop({ required: true })
   graphId: string;
 
@@ -92,4 +95,4 @@ export class Job {
   status: string;
 }
 
-export const JobSchema = SchemaFactory.createForClass(Job);
+export const JobTemplateSchema = SchemaFactory.createForClass(JobTemplate);

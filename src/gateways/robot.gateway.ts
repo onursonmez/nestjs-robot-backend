@@ -48,6 +48,7 @@ export class RobotGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
 
   @SubscribeMessage('robotCreate')
   async handleCreate(client: Socket, createRobotDto: CreateRobotDto) {
+    console.log(createRobotDto);
     const robot = await this.robotService.create(createRobotDto);
     this.notifyRobotCreated(robot);
     return { event: 'robotCreated', data: robot };
