@@ -15,15 +15,18 @@ import { NodeActionTypeService } from './services/node-action-type.service';
 import { NodeActionTypeGateway } from './gateways/node-action-type.gateway';
 import { NodeActionType, NodeActionTypeSchema } from './schemas/node-action-type.schema';
 import { MqttService } from './services/mqtt.service';
+
 import { MapController } from './controllers/map.controller';
 import { MapService } from './services/map.service';
 import { MapGateway } from './gateways/map.gateway';
 import { Map, MapSchema } from './schemas/map.schema';
 import { MapGenerateService } from './services/map-generate.service';
+
 import { GraphController } from './controllers/graph.controller';
 import { GraphService } from './services/graph.service';
 import { GraphGateway } from './gateways/graph.gateway';
 import { Graph, GraphSchema } from './schemas/graph.schema';
+
 import { JobController } from './controllers/job.controller';
 import { JobService } from './services/job.service';
 import { JobGateway } from './gateways/job.gateway';
@@ -48,6 +51,11 @@ import { JobTemplateController } from './controllers/job-template.controller';
 import { JobTemplateService } from './services/job-template.service';
 import { JobTemplateGateway } from './gateways/job-template.gateway';
 import { JobTemplate, JobTemplateSchema } from './schemas/job-template.schema';
+
+import { InstantActionController } from './controllers/instant-action.controller';
+import { InstantActionService } from './services/instant-action.service';
+import { InstantActionGateway } from './gateways/instant-action.gateway';
+import { InstantAction, InstantActionSchema } from './schemas/instant-action.schema';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -63,9 +71,10 @@ import { JobTemplate, JobTemplateSchema } from './schemas/job-template.schema';
       { name: Load.name, schema: LoadSchema },
       { name: Carrier.name, schema: CarrierSchema },
       { name: Area.name, schema: AreaSchema },
+      { name: InstantAction.name, schema: InstantActionSchema },
     ]),
   ],
-  controllers: [RobotController, RobotTypeController, MapController, GraphController, NodeActionTypeController, JobController, LoadController, CarrierController, AreaController, JobTemplateController],
-  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, RobotTypeGateway, NodeActionTypeGateway, MqttService, MapService, MapGenerateService, GraphService, MapGateway, GraphGateway, NodeActionTypeService, JobService, JobGateway, LoadService, LoadGateway, CarrierService, CarrierGateway, AreaService, AreaGateway, JobTemplateService, JobTemplateGateway],
+  controllers: [RobotController, RobotTypeController, MapController, GraphController, NodeActionTypeController, JobController, LoadController, CarrierController, AreaController, JobTemplateController, InstantActionController],
+  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, RobotTypeGateway, NodeActionTypeGateway, MqttService, MapService, MapGenerateService, GraphService, MapGateway, GraphGateway, NodeActionTypeService, JobService, JobGateway, LoadService, LoadGateway, CarrierService, CarrierGateway, AreaService, AreaGateway, JobTemplateService, JobTemplateGateway, InstantActionService, InstantActionGateway],
 })
 export class AppModule { }
