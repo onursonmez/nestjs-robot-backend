@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { AsasModule } from './plugins/asas/asas.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { BroadcastService } from './services/broadcast.service';
@@ -59,6 +60,7 @@ import { InstantAction, InstantActionSchema } from './schemas/instant-action.sch
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    AsasModule,
     MongooseModule.forRoot('mongodb://admin:patika@88.198.66.88:27017/fleet_manager?authSource=admin'),
     MongooseModule.forFeature([
       { name: Robot.name, schema: RobotSchema },
