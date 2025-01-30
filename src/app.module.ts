@@ -57,6 +57,12 @@ import { InstantActionController } from './controllers/instant-action.controller
 import { InstantActionService } from './services/instant-action.service';
 import { InstantActionGateway } from './gateways/instant-action.gateway';
 import { InstantAction, InstantActionSchema } from './schemas/instant-action.schema';
+
+import { CarrierTypeController } from './controllers/carrier-type.controller';
+import { CarrierTypeService } from './services/carrier-type.service';
+import { CarrierTypeGateway } from './gateways/carrier-type.gateway';
+import { CarrierType, CarrierTypeSchema } from './schemas/carrier-type.schema';
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -74,9 +80,10 @@ import { InstantAction, InstantActionSchema } from './schemas/instant-action.sch
       { name: Carrier.name, schema: CarrierSchema },
       { name: Area.name, schema: AreaSchema },
       { name: InstantAction.name, schema: InstantActionSchema },
+      { name: CarrierType.name, schema: CarrierTypeSchema },
     ]),
   ],
-  controllers: [RobotController, RobotTypeController, MapController, GraphController, NodeActionTypeController, JobController, LoadController, CarrierController, AreaController, JobTemplateController, InstantActionController],
-  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, RobotTypeGateway, NodeActionTypeGateway, MqttService, MapService, MapGenerateService, GraphService, MapGateway, GraphGateway, NodeActionTypeService, JobService, JobGateway, LoadService, LoadGateway, CarrierService, CarrierGateway, AreaService, AreaGateway, JobTemplateService, JobTemplateGateway, InstantActionService, InstantActionGateway],
+  controllers: [RobotController, RobotTypeController, MapController, GraphController, NodeActionTypeController, JobController, LoadController, CarrierController, AreaController, JobTemplateController, InstantActionController, CarrierTypeController],
+  providers: [RobotService, RobotTypeService, BroadcastService, RobotGateway, RobotTypeGateway, NodeActionTypeGateway, MqttService, MapService, MapGenerateService, GraphService, MapGateway, GraphGateway, NodeActionTypeService, JobService, JobGateway, LoadService, LoadGateway, CarrierService, CarrierGateway, AreaService, AreaGateway, JobTemplateService, JobTemplateGateway, InstantActionService, InstantActionGateway, CarrierTypeService, CarrierTypeGateway],
 })
 export class AppModule { }

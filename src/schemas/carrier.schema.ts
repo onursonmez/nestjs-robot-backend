@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { CarrierType } from './carrier-type.schema';
 
 @Schema({
   collection: 'carriers',
@@ -9,6 +10,21 @@ import { Document } from 'mongoose';
 export class Carrier extends Document {
   @Prop({ required: true })
   name: string;
+
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'CarrierType', required: true })
+  type: CarrierType;
+
+  @Prop()
+  stationId: string;
+
+  @Prop()
+  jobId: string;
+
+  @Prop()
+  status: string;
+
+  @Prop()
+  loadId: string;
 }
 
 export const CarrierSchema = SchemaFactory.createForClass(Carrier);
